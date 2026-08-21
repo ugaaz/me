@@ -480,6 +480,9 @@ section{position:relative}
 }
 .money input{padding-left:38px;font-weight:700}
 .field:focus,.money input:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 4px rgba(224,169,59,.18)}
+.field.err,.check.err{border-color:var(--rose);box-shadow:0 0 0 4px rgba(180,71,47,.16);animation:nudge .4s var(--ease)}
+.check.err{border-radius:10px;padding:6px;margin-left:-6px;box-shadow:none;color:var(--rose)}
+@keyframes nudge{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 textarea.field{resize:vertical;min-height:110px}
 label.lbl{display:block;font-size:13px;font-weight:800;letter-spacing:.02em;margin-bottom:7px;color:var(--muted)}
 
@@ -1692,10 +1695,22 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   /* ---------------------------------------------------------
      11. Form handling (front-end demo — no backend attached)
      --------------------------------------------------------- */
+  function flagInvalid(els) {
+    const bad = els.filter(el => (el.type === 'checkbox' ? !el.checked : !el.value.trim()));
+    bad.forEach(el => {
+      const target = el.type === 'checkbox' ? el.closest('.check') : el;
+      target.classList.add('err');
+      el.addEventListener('input', () => target.classList.remove('err'), { once: true });
+      el.addEventListener('change', () => target.classList.remove('err'), { once: true });
+    });
+    if (bad.length) bad[0].focus({ preventScroll: false });
+    return bad.length === 0;
+  }
+
   $('#donateForm').addEventListener('submit', e => {
     e.preventDefault();
-    const name = $('#dName').value.trim(), contact = $('#dContact').value.trim();
-    if (!name || !contact) {
+    const name = $('#dName').value.trim();
+    if (!flagInvalid([$('#dName'), $('#dContact')])) {
       toast(lang === 'en' ? 'Please add your name and a way to reach you.'
                           : 'Fadlan ku dar magacaaga iyo sida lagugu heli karo.');
       return;
@@ -1709,14 +1724,14 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
 
   $('#aidForm').addEventListener('submit', e => {
     e.preventDefault();
-    if (!$('#aConsent').checked) {
-      toast(lang === 'en' ? 'Please confirm consent so we can open a file.'
-                          : 'Fadlan xaqiiji oggolaanshaha si aan fayl u furno.');
-      return;
-    }
-    if (!$('#aName').value.trim() || !$('#aPhone').value.trim()) {
+    if (!flagInvalid([$('#aName'), $('#aPhone')])) {
       toast(lang === 'en' ? 'We need a name and a phone number to call you back.'
                           : 'Waxaan u baahannahay magac iyo lambar telefoon si aan kuugu soo wacno.');
+      return;
+    }
+    if (!flagInvalid([$('#aConsent')])) {
+      toast(lang === 'en' ? 'Please confirm consent so we can open a file.'
+                          : 'Fadlan xaqiiji oggolaanshaha si aan fayl u furno.');
       return;
     }
     const ref = 'PRAA-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
