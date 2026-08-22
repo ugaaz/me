@@ -64,6 +64,11 @@ PNG exports sit alongside: `bagaash-mark.png` (512), `bagaash-app-icon.png`
 (512) and `-1024.png`, `bagaash-apple-touch-icon.png` (180),
 `bagaash-favicon-32.png` (32), and the lockups at 1024/900 wide.
 
+`bagaash-mark-mono.svg` takes its colour from `currentColor`, which only
+inherits when the file is inlined in the page. Loaded through `<img src>` it
+renders black, because an `<img>` SVG is a separate document with no CSS colour
+to inherit — inline it, or reach for one of the coloured files instead.
+
 ### Wiring up the site
 
 ```html
