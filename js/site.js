@@ -76,9 +76,36 @@
     });
   }
 
+  const consultButtons = document.querySelectorAll("[data-consult-type]");
+  const consultInput = document.querySelector("#consult-type");
+  const consultBlock = document.querySelector(".choice-block");
+  const consultError = document.querySelector("[data-consult-error]");
+
+  consultButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      consultButtons.forEach((other) => {
+        other.classList.remove("is-selected");
+        other.setAttribute("aria-pressed", "false");
+      });
+      button.classList.add("is-selected");
+      button.setAttribute("aria-pressed", "true");
+      if (consultInput) consultInput.value = button.getAttribute("data-consult-type") || "";
+      consultBlock?.classList.remove("is-invalid");
+      if (consultError) consultError.hidden = true;
+    });
+  });
+
   forms.forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (consultInput && form.contains(consultInput) && !consultInput.value) {
+        consultBlock?.classList.add("is-invalid");
+        if (consultError) {
+          consultError.hidden = false;
+          consultError.focus();
+        }
+        return;
+      }
       const success = form.parentElement.querySelector("[data-form-success]");
       form.hidden = true;
       if (success) {
@@ -86,6 +113,10 @@
         success.focus();
       }
       form.reset();
+      consultButtons.forEach((button) => {
+        button.classList.remove("is-selected");
+        button.setAttribute("aria-pressed", "false");
+      });
     });
   });
 })();

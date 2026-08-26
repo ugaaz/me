@@ -20,6 +20,7 @@ Then open `http://localhost:8080`.
 | `index.html` | Home |
 | `about.html` | Biography and approach |
 | `focus.html` | Eight areas of interest |
+| `consult.html` | Consultation requests |
 | `insights.html` | Essay index |
 | `support.html` | Independent giving |
 | `contact.html` | Enquiries |
