@@ -5,6 +5,8 @@ Personal website for **Aziiz Guuleed**, environmental scientist, researcher and 
 **Tagline:** Ideas, Evidence & Solutions for a Resilient Somalia  
 **Preferred domain:** [guuledgreen.com](https://guuledgreen.com)
 
+The full site lives in a single file: **`index.html`** (styles and scripts are inlined). Keep the `assets/` folder beside it for photographs.
+
 ## Local preview
 
 ```bash
@@ -13,18 +15,6 @@ python3 -m http.server 8080
 
 Then open `http://localhost:8080`.
 
-## Pages
-
-| Page | Purpose |
-| --- | --- |
-| `index.html` | Home |
-| `about.html` | Biography and approach |
-| `focus.html` | Eight areas of interest |
-| `consult.html` | Consultation requests |
-| `insights.html` | Essay index |
-| `support.html` | Independent giving |
-| `contact.html` | Enquiries |
-
-Static HTML, CSS and JavaScript. No build step.
+Other `.html` files are redirects into sections of `index.html`.
 
 Photographs are from [Unsplash](https://unsplash.com) and used under the Unsplash License.
