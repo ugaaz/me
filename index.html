@@ -64,13 +64,14 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 18px);-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 18px);scrollbar-gutter:stable;-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--paper);color:var(--text);
   font-family:var(--font-sans);font-size:17px;line-height:1.65;
   font-feature-settings:"ss01","cv11";
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
+body.menu-open{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -172,14 +173,59 @@ nav.nav.stuck{border-bottom-color:var(--line);box-shadow:0 10px 30px -22px rgba(
   font-size:13px;font-weight:800;cursor:pointer;transition:.2s var(--ease);
 }
 .chip-btn:hover{color:var(--text);border-color:var(--gold);transform:translateY(-1px)}
-.menu-only{display:none}
-.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--surface);cursor:pointer;align-items:center;justify-content:center}
-.burger span{display:block;width:18px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:.3s var(--ease)}
-.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:currentColor;border-radius:2px;transition:.3s var(--ease)}
-.burger span::before{top:-6px}.burger span::after{top:6px}
-body.menu-open .burger span{background:transparent}
-body.menu-open .burger span::before{transform:translateY(6px) rotate(45deg)}
-body.menu-open .burger span::after{transform:translateY(-6px) rotate(-45deg)}
+.burger{
+  display:inline-flex;align-items:center;gap:9px;height:38px;padding:0 15px 0 12px;border-radius:100px;
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;
+  font-size:13px;font-weight:800;transition:.2s var(--ease);
+}
+.burger:hover{color:var(--text);border-color:var(--gold);transform:translateY(-1px)}
+body.menu-open .burger{color:var(--text);border-color:var(--gold);background:var(--gold-soft)}
+.burger i{display:block;width:17px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:.3s var(--ease)}
+.burger i::before,.burger i::after{content:"";position:absolute;left:0;width:17px;height:2px;background:currentColor;border-radius:2px;transition:.3s var(--ease)}
+.burger i::before{top:-5.5px}.burger i::after{top:5.5px}
+body.menu-open .burger i{background:transparent}
+body.menu-open .burger i::before{transform:translateY(5.5px) rotate(45deg)}
+body.menu-open .burger i::after{transform:translateY(-5.5px) rotate(-45deg)}
+
+/* ---------- categorized menu panel ---------- */
+.menu-scrim{
+  position:fixed;inset:0;z-index:98;background:rgba(7,16,28,.52);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .35s var(--ease);
+}
+body.menu-open .menu-scrim{opacity:1;pointer-events:auto}
+.menu-panel{
+  position:fixed;left:0;right:0;top:var(--menu-top,114px);z-index:99;
+  background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow-m);
+  max-height:calc(100vh - var(--menu-top,114px));overflow:auto;overscroll-behavior:contain;
+  transform:translateY(-14px);opacity:0;visibility:hidden;
+  transition:transform .38s var(--ease),opacity .28s var(--ease),visibility .38s;
+}
+body.menu-open .menu-panel{transform:none;opacity:1;visibility:visible}
+.menu-in{display:grid;grid-template-columns:1fr minmax(260px,300px);gap:clamp(24px,3vw,46px);padding:clamp(26px,3vw,38px) 0 clamp(30px,3.5vw,44px)}
+.menu-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2vw,30px)}
+.menu-cat h5{
+  margin:0 0 10px;padding-bottom:11px;border-bottom:1px solid var(--line-2);
+  font-family:var(--font-sans);font-size:11.5px;font-weight:800;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold);
+}
+.menu-cat a{display:block;padding:9px 12px;margin:0 -12px;border-radius:12px;transition:background .22s,transform .22s}
+.menu-cat a:hover{background:var(--surface-2);transform:translateX(4px)}
+.menu-cat a b{display:block;font-size:14.8px;font-weight:700;letter-spacing:-.01em}
+.menu-cat a small{display:block;font-size:12.4px;line-height:1.45;color:var(--muted)}
+.menu-aside{
+  background:var(--navy);color:#fff;border-radius:var(--r-l);padding:26px;
+  display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;
+}
+.menu-aside::before{content:"";position:absolute;inset:0;opacity:.55;background:radial-gradient(90% 70% at 100% 0%,rgba(224,169,59,.32),transparent 62%)}
+.menu-aside>*{position:relative}
+.menu-aside h5{margin:0;font-family:var(--font-display);font-size:1.16rem;color:#fff}
+.menu-aside p{font-size:13.6px;color:rgba(201,216,234,.72);line-height:1.55}
+.menu-call{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+.menu-call svg{flex:none;color:var(--gold-2)}
+.menu-call b{display:block;font-size:15px;color:#fff}
+.menu-call small{display:block;font-size:12px;color:rgba(201,216,234,.65)}
+.menu-aside .btn{width:100%}
 
 /* ============================================================
    HERO
@@ -438,6 +484,60 @@ section{position:relative}
 [data-theme="dark"] .tag{color:#5fd3bd;background:rgba(31,122,107,.2)}
 
 /* ============================================================
+   TEAM
+   ============================================================ */
+.mono-av{
+  width:52px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:var(--font-display);font-weight:900;font-size:1rem;letter-spacing:.01em;
+  color:var(--gold-2);background:linear-gradient(150deg,var(--navy),#08172a);
+  border:1px solid rgba(224,169,59,.4);box-shadow:0 12px 26px -16px rgba(15,42,74,.9);
+}
+.role{
+  font-size:12.2px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  line-height:1.4;
+}
+[data-theme="dark"] .role{color:var(--gold-2)}
+
+.team-lead{
+  position:relative;overflow:hidden;margin-top:52px;
+  display:grid;grid-template-columns:auto 1fr;gap:clamp(22px,3vw,40px);align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);
+  padding:clamp(26px,3.4vw,46px);box-shadow:var(--shadow-m);
+}
+.team-lead::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
+  background:radial-gradient(58% 130% at 100% 0%,var(--gold-soft),transparent 62%);
+}
+.team-lead>*{position:relative}
+.team-lead .mono-av{width:clamp(88px,9vw,120px);font-size:clamp(1.5rem,2.2vw,2rem);border-width:2px}
+.team-lead h3{font-size:clamp(1.45rem,2.7vw,2.15rem);letter-spacing:-.03em;margin:10px 0 0}
+.team-lead p{margin-top:16px;font-size:15.6px;color:var(--muted);max-width:64ch}
+.lead-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+.member{
+  display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line-2);
+  border-radius:var(--r-l);padding:24px;box-shadow:var(--shadow-s);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .3s;
+}
+.member:hover{transform:translateY(-6px);box-shadow:var(--shadow-m);border-color:var(--gold)}
+.member .mono-av{margin-bottom:16px}
+.member b{font-family:var(--font-display);font-size:15.8px;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+.member .role{margin-top:7px}
+.member small{margin-top:11px;font-size:13.4px;line-height:1.5;color:var(--muted)}
+
+.board-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.board-row{
+  display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:var(--r-m);
+  background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-s);
+  transition:transform .35s var(--ease),border-color .3s;
+}
+.board-row:hover{transform:translateX(6px);border-color:var(--gold)}
+.board-row .mono-av{width:44px;font-size:.86rem}
+.board-row b{display:block;font-size:15px;font-weight:700}
+.board-row .role{margin-top:3px}
+
+/* ============================================================
    DONATE
    ============================================================ */
 .donate-sec{
@@ -611,6 +711,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   .orbit-tag{display:none}
   .g4{grid-template-columns:repeat(2,1fr)}
   .impact-grid{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
   .donate-shell,.aid-shell,.split{grid-template-columns:1fr}
   .journey{grid-template-columns:repeat(2,1fr);gap:26px}
   .journey::before,.journey .fill{display:none}
@@ -619,18 +720,11 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
 @media (max-width:1220px){
   .brand-txt small{display:none}
   .nav-links a{padding:9px 10px;font-size:14px}
+  .menu-cats{grid-template-columns:repeat(2,1fr);row-gap:30px}
+  .menu-in{grid-template-columns:1fr}
 }
 @media (max-width:1010px){
-  .nav-links{
-    position:fixed;inset:calc(var(--nav-h) + 40px) 0 auto;flex-direction:column;align-items:stretch;
-    background:var(--surface);border-bottom:1px solid var(--line);padding:14px 22px 26px;gap:2px;
-    transform:translateY(-14px);opacity:0;pointer-events:none;transition:.35s var(--ease);
-    box-shadow:var(--shadow-m);max-height:calc(100vh - var(--nav-h) - 40px);overflow:auto;
-  }
-  body.menu-open .nav-links{transform:none;opacity:1;pointer-events:auto}
-  .nav-links a{padding:14px 12px;font-size:16px;border-radius:12px}
-  .nav-links a.menu-only{display:block;background:var(--gold);color:#12100a;text-align:center;margin-top:10px;font-weight:800}
-  .burger{display:flex}
+  .nav-links{display:none}
   .nav-in{gap:10px}
 }
 @media (max-width:860px){
@@ -638,6 +732,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   .statstrip div:nth-child(2n){border-right:0}
   .statstrip div{border-bottom:1px solid rgba(255,255,255,.1)}
   .g3,.g2{grid-template-columns:1fr}
+  .board-list{grid-template-columns:1fr}
   .topbar .wrap>span:first-child{display:none}
 }
 @media (max-width:620px){
@@ -645,6 +740,8 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   .wrap{width:calc(100% - 32px)}
   .g4,.amounts{grid-template-columns:1fr 1fr}
   .impact-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .team-lead{grid-template-columns:1fr;text-align:left}
   .journey{grid-template-columns:1fr}
   .formrow{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr}
@@ -655,6 +752,9 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   .nav-tools{gap:6px}
   .chip-btn{padding:0 11px}
   .mark{width:38px;height:38px}
+  .menu-cats{grid-template-columns:1fr;gap:14px}
+  .menu-aside{padding:22px}
+  .burger{padding:0 12px 0 10px;gap:7px}
   .donut{width:150px;height:150px}
   .custom-row{flex-direction:column}
   .seg button{padding:9px 14px;font-size:12.5px}
@@ -664,7 +764,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   .rv{opacity:1;transform:none}
 }
 @media print{
-  .nav,.topbar,.marquee,.progress,.toast,.hero .bars{display:none!important}
+  .nav,.topbar,.marquee,.progress,.toast,.hero .bars,.menu-panel,.menu-scrim{display:none!important}
   body{background:#fff;color:#000}
 }
 </style>
@@ -731,11 +831,9 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
     <div class="nav-links" id="navLinks">
       <a href="#about" data-en="About">Ka Saabsan</a>
       <a href="#programs" data-en="Programs">Barnaamijyada</a>
-      <a href="#journey" data-en="How it works">Habka Kiiska</a>
+      <a href="#team" data-en="Our team">Kooxdayada</a>
       <a href="#impact" data-en="Impact">Saamaynta</a>
       <a href="#legal-aid" data-en="Legal aid">Gargaar Sharci</a>
-      <a href="#contact" data-en="Contact">Xiriir</a>
-      <a href="#donate" class="menu-only" data-en="Donate">Bixi Deeq</a>
     </div>
 
     <div class="nav-tools">
@@ -746,10 +844,63 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
       <a class="btn btn-sm" href="#donate"><span data-en="Donate">Bixi Deeq</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-4.9-8-10.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 3.6C20 16.1 12 21 12 21Z"/></svg>
       </a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      <button class="burger" id="burger" aria-controls="menuPanel" aria-expanded="false">
+        <i aria-hidden="true"></i><b data-en="Menu">Liiska</b>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- ===== CATEGORIZED MENU PANEL ===== -->
+<div class="menu-scrim" id="menuScrim" aria-hidden="true"></div>
+<div class="menu-panel" id="menuPanel" role="dialog" aria-modal="true" aria-label="Liiska guud">
+  <div class="wrap menu-in">
+    <div class="menu-cats">
+      <nav class="menu-cat">
+        <h5 data-en="The organization">Ururka</h5>
+        <a href="#about"><b data-en="About PRAA">Ka saabsan PRAA</b><small data-en="Who we are and why we exist">Cidda aan nahay iyo sababta aan u jirno</small></a>
+        <a href="#values"><b data-en="Values &amp; objectives">Qiimaha &amp; ujeedooyinka</b><small data-en="Six commitments, five objectives">Lix ballanqaad, shan ujeeddo</small></a>
+        <a href="#team"><b data-en="Leadership team">Kooxda hoggaanka</b><small data-en="The people who carry the cases">Dadka kiisaska qaada</small></a>
+        <a href="#board"><b data-en="Board &amp; advisors">Guddiga &amp; latalinta</b><small data-en="Oversight and legal counsel">Kormeer iyo talo sharci</small></a>
+      </nav>
+
+      <nav class="menu-cat">
+        <h5 data-en="Programs">Barnaamijyada</h5>
+        <a href="#prog-legal"><b data-en="Legal aid">Gargaar sharci</b><small data-en="Free representation, bail and appeals">Matal bilaash, damiin iyo racfaan</small></a>
+        <a href="#prog-health"><b data-en="Health support">Taageero caafimaad</b><small data-en="Clinic days, TB screening, counselling">Maalmo kaliinig, baaritaan TB, la-talin</small></a>
+        <a href="#prog-education"><b data-en="Education &amp; rehabilitation">Waxbarasho &amp; dib-u-habayn</b><small data-en="Literacy, Qur'an and trade skills">Akhris-qoris, Qur'aan iyo xirfado</small></a>
+        <a href="#prog-reintegration"><b data-en="Reintegration">Dib-u-dhexgal</b><small data-en="Someone waiting at the gate on release">Qof albaabka kugu sugaya maalinta sii-deynta</small></a>
+      </nav>
+
+      <nav class="menu-cat">
+        <h5 data-en="Get help">Caawimaad</h5>
+        <a href="#legal-aid"><b data-en="Request legal aid">Codso gargaar sharci</b><small data-en="Open a confidential case file">Fur fayl kiis oo qarsoodi ah</small></a>
+        <a href="tel:+252000000000"><b data-en="24/7 helpline">Khadka degdegga 24/7</b><small data-en="+252 000 000 000">+252 000 000 000</small></a>
+        <a href="#journey"><b data-en="How a case moves">Habka kiisku u socdo</b><small data-en="From intake to reintegration">Diiwaangelin ilaa dib-u-dhexgal</small></a>
+        <a href="#faq"><b data-en="Questions families ask">Su'aalaha qoysasku weydiiyaan</b><small data-en="Cost, confidentiality, timelines">Kharash, qarsoodi, waqti</small></a>
+      </nav>
+
+      <nav class="menu-cat">
+        <h5 data-en="Support &amp; connect">Taageer &amp; xiriir</h5>
+        <a href="#donate"><b data-en="Donate">Bixi deeq</b><small data-en="One-off or monthly, tied to a case">Hal mar ama bishii, kiis ku xiran</small></a>
+        <a href="#allocation"><b data-en="Where the money goes">Halka lacagtu tagto</b><small data-en="Full allocation breakdown">Kala qaybinta oo dhan</small></a>
+        <a href="#impact"><b data-en="Impact &amp; reports">Saamaynta &amp; warbixinno</b><small data-en="Numbers and voices from 2025–2026">Tirooyin iyo codad 2025–2026</small></a>
+        <a href="mailto:info@praa.org?subject=Pro%20bono"><b data-en="Volunteer pro bono">Iskaa wax u qabso</b><small data-en="Lawyers, doctors, teachers">Qareeno, dhakhaatiir, macallimiin</small></a>
+        <a href="#contact"><b data-en="Contact &amp; partnership">Xiriir &amp; iskaashi</b><small data-en="Institutions, donors, media">Hay'ado, deeq-bixiyayaal, warbaahin</small></a>
+      </nav>
+    </div>
+
+    <aside class="menu-aside">
+      <h5 data-en="Someone detained tonight?">Qof caawa la xiray?</h5>
+      <p data-en="The helpline answers at any hour. A duty lawyer can reach a police station in Mogadishu the same night.">Khadka gargaarku wuu jawaabaa saac kasta. Qareen joogto ah ayaa isla habeenkaas gaari kara saldhig ku yaal Muqdisho.</p>
+      <a class="menu-call" href="tel:+252000000000">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+        <span><b>+252 000 000 000</b><small data-en="Free · confidential · 24 hours">Bilaash · qarsoodi · 24 saac</small></span>
+      </a>
+      <a class="btn btn-sm" href="#donate"><span data-en="Fund a case file">Maalgeli fayl kiis</span></a>
+    </aside>
+  </div>
+</div>
 
 <main id="main">
 <!-- ===== HERO ===== -->
@@ -853,7 +1004,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
     </div>
 
     <!-- values -->
-    <div style="margin-top:clamp(56px,7vw,92px)">
+    <div id="values" style="margin-top:clamp(56px,7vw,92px)">
       <div class="rv">
         <span class="eyebrow" data-en="Our values">Qiimaha Ururka</span>
         <h2 class="h-m" style="margin-top:14px" data-en="Six commitments we do not trade away.">Lix ballanqaad oo aanan waligeen ka tanaasulin.</h2>
@@ -893,7 +1044,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
     </div>
 
     <div class="grid g2" style="margin-top:52px">
-      <article class="prog rv">
+      <article class="prog rv" id="prog-legal">
         <span class="num">01</span>
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 7h14M7 7l-3 7h6ZM17 7l-3 7h6ZM8 20h8"/></svg></div>
         <h3 data-en="Legal aid">Gargaar Sharci</h3>
@@ -905,7 +1056,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
         </ul>
       </article>
 
-      <article class="prog rv d1">
+      <article class="prog rv d1" id="prog-health">
         <span class="num">02</span>
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1Z"/></svg></div>
         <h3 data-en="Health support">Taageero Caafimaad</h3>
@@ -917,7 +1068,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
         </ul>
       </article>
 
-      <article class="prog rv d2">
+      <article class="prog rv d2" id="prog-education">
         <span class="num">03</span>
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H12v18H5.5A2.5 2.5 0 0 1 3 18.5Z"/><path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H12v18h6.5a2.5 2.5 0 0 0 2.5-2.5Z"/></svg></div>
         <h3 data-en="Education &amp; rehabilitation">Waxbarasho iyo Dib-u-habayn</h3>
@@ -929,7 +1080,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
         </ul>
       </article>
 
-      <article class="prog rv d3">
+      <article class="prog rv d3" id="prog-reintegration">
         <span class="num">04</span>
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
         <h3 data-en="Community reintegration">Dib-u-dhexgal Bulsho</h3>
@@ -979,6 +1130,190 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
         <h4 data-en="5 · Reintegration">5 · Dib-u-dhexgal</h4>
         <p data-en="On release: toolkit, family mediation and six months of follow-up.">Marka la sii daayo: qalab shaqo, dhex-dhexaadin qoys iyo lix bilood oo la-socod ah.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM =====
+     NOTE: every name below except the chairman is a PLACEHOLDER invented for layout
+     purposes. Replace each one with a real staff or board member — including their
+     consent to be listed — before this page is published publicly. -->
+<section class="sec alt" id="team">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow center" data-en="Our people">Kooxdayada</span>
+      <h2 class="h-l" data-en="A case file is only as strong as the person carrying it.">Fayl kiis wuxuu u xoog leeyahay sida qofka sitaa.</h2>
+      <p class="lead" data-en="Lawyers, doctors, teachers and case officers who show up at police stations, prison gates and courtrooms — often before anyone else does.">Qareeno, dhakhaatiir, macallimiin iyo saraakiil kiisas oo tegaya saldhigyada, albaabbada xabsiyada iyo maxkamadaha — inta badan qof kasta ka hor.</p>
+    </div>
+
+    <!-- chairman -->
+    <div class="team-lead rv">
+      <span class="mono-av" aria-hidden="true">AS</span>
+      <div>
+        <span class="role" data-en="Chairman &amp; Founder">Guddoomiyaha &amp; Aasaasaha</span>
+        <h3>ABDISALAM MOHAMED SIYAD</h3>
+        <p data-en="Founded PRAA after years spent watching detainees appear in court with no lawyer beside them. He leads the organization's legal strategy, represents PRAA before the authorities and courts, and still takes cases himself.">Wuxuu aasaasay PRAA sanado uu ku arkayay dad xiran oo maxkamadda soo gala iyagoon qareen dhinac joogin. Wuxuu hoggaaminayaa istaraatiijiyadda sharci ee ururka, PRAA-na wuxuu ka matalaa maamulka iyo maxkamadaha, weliba wali kiisas ayuu qaataa.</p>
+        <div class="lead-meta">
+          <span class="tag" data-en="Legal strategy">Istaraatiijiyad sharci</span>
+          <span class="tag" data-en="Court representation">Matal maxkamadeed</span>
+          <span class="tag" data-en="Prison reform advocacy">U-doodid dib-u-habayn xabsi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- staff -->
+    <div style="margin-top:clamp(46px,6vw,72px)">
+      <div class="rv">
+        <span class="eyebrow" data-en="Leadership team">Kooxda hoggaanka</span>
+        <h2 class="h-m" style="margin-top:14px" data-en="The people behind every case.">Dadka kiis kasta ka danbeeya.</h2>
+      </div>
+
+      <div class="team-grid">
+        <article class="member rv">
+          <span class="mono-av" aria-hidden="true">FW</span>
+          <b>Faadumo Xasan Warsame</b>
+          <span class="role" data-en="Executive Director">Agaasimaha Fulinta</span>
+          <small data-en="Runs day-to-day operations, staffing and donor reporting across all four programmes.">Waxay maalin walba maamushaa hawlaha, shaqaalaha iyo warbixinta deeq-bixiyayaasha afarta barnaamij oo dhan.</small>
+        </article>
+
+        <article class="member rv d1">
+          <span class="mono-av" aria-hidden="true">CD</span>
+          <b>Cabdiraxmaan Yuusuf Diiriye</b>
+          <span class="role" data-en="Deputy Chairman">Guddoomiye Ku-xigeen</span>
+          <small data-en="Deputises for the chairman and leads relations with regional authorities and prison administrations.">Wuxuu ku-xigeenka u yahay guddoomiyaha, wuxuuna hoggaaminayaa xiriirka maamullada gobollada iyo maamulka xabsiyada.</small>
+        </article>
+
+        <article class="member rv d2">
+          <span class="mono-av" aria-hidden="true">XN</span>
+          <b>Xaawo Cabdi Nuur</b>
+          <span class="role" data-en="Head of Legal Aid">Madaxa Gargaarka Sharciga</span>
+          <small data-en="Leads the duty-lawyer roster, bail applications and appeals; assigns every incoming case file.">Waxay hoggaamisaa liiska qareennada joogtada ah, codsiyada damiinka iyo racfaanka; kiis kasta oo soo gala iyada ayaa qoondaysa.</small>
+        </article>
+
+        <article class="member rv d3">
+          <span class="mono-av" aria-hidden="true">MG</span>
+          <b>Maxamed Ibraahim Geedi</b>
+          <span class="role" data-en="Head of Prison Monitoring">Madaxa Kormeerka Xabsiyada</span>
+          <small data-en="Documents detention conditions and unlawful or prolonged imprisonment inside monitored facilities.">Wuxuu diiwaangeliyaa xaaladaha xabsiga iyo xiritaan sharci-darro ah ama mudo dheeraaday xarumaha la kormeero.</small>
+        </article>
+
+        <article class="member rv">
+          <span class="mono-av" aria-hidden="true">AC</span>
+          <b>Aamina Sheekh Cali</b>
+          <span class="role" data-en="Health &amp; Welfare Officer">Sarkaalka Caafimaadka &amp; Daryeelka</span>
+          <small data-en="Coordinates mobile clinic days, TB screening and trauma counselling inside detention.">Waxay isku duwdaa maalmaha kaliinigga guurguurta, baaritaanka TB iyo la-talinta nafsiyeed ee gudaha xabsiga.</small>
+        </article>
+
+        <article class="member rv d1">
+          <span class="mono-av" aria-hidden="true">SJ</span>
+          <b>Sahra Axmed Jaamac</b>
+          <span class="role" data-en="Advocacy &amp; Communications Lead">Madaxa U-doodista &amp; Warfaafinta</span>
+          <small data-en="Takes PRAA's findings to policymakers, courts and the press, and publishes the impact reports.">Waxay natiijooyinka PRAA u gudbisaa siyaasad-dejiyayaasha, maxkamadaha iyo warbaahinta, waxayna daabacdaa warbixinnada saamaynta.</small>
+        </article>
+
+        <article class="member rv d2">
+          <span class="mono-av" aria-hidden="true">DS</span>
+          <b>Deeqa Maxamuud Shire</b>
+          <span class="role" data-en="Women &amp; Juvenile Justice Officer">Sarkaalka Caddaaladda Haweenka &amp; Dhallinyarada</span>
+          <small data-en="Handles cases involving women, mothers with infants in custody and detainees under eighteen.">Waxay qabataa kiisaska haweenka, hooyooyinka carruurta yaryar la xiran iyo dadka xiran ee ka yar siddeed iyo toban.</small>
+        </article>
+
+        <article class="member rv d3">
+          <span class="mono-av" aria-hidden="true">IF</span>
+          <b>Ismaaciil Cabdullaahi Faarax</b>
+          <span class="role" data-en="Reintegration Coordinator">Isuduwaha Dib-u-dhexgalka</span>
+          <small data-en="Meets people at the gate on release: toolkits, family mediation and six months of follow-up.">Wuxuu dadka kula kulmaa albaabka maalinta sii-deynta: qalab shaqo, dhex-dhexaadin qoys iyo lix bilood oo la-socod ah.</small>
+        </article>
+
+        <article class="member rv">
+          <span class="mono-av" aria-hidden="true">XK</span>
+          <b>Xuseen Cumar Kaahin</b>
+          <span class="role" data-en="Family Liaison Officer">Xiriiriyaha Qoysaska</span>
+          <small data-en="Answers the 24/7 helpline, traces missing detainees and keeps families informed week by week.">Wuxuu ka jawaabaa khadka gargaarka 24/7, wuxuu raadiyaa dadka xiran ee la waayay, qoysaskana toddobaad kasta wuu wargeliyaa.</small>
+        </article>
+
+        <article class="member rv d1">
+          <span class="mono-av" aria-hidden="true">CX</span>
+          <b>Cali Nuur Xirsi</b>
+          <span class="role" data-en="Finance &amp; Transparency Manager">Maareeyaha Maaliyadda &amp; Hufnaanta</span>
+          <small data-en="Ties every shilling to a case number and prepares the annual independent audit.">Shilin kasta wuxuu ku xiraa lambar kiis, wuxuuna diyaariyaa hanti-dhawrka madax-bannaan ee sannadlaha ah.</small>
+        </article>
+
+        <article class="member rv d2">
+          <span class="mono-av" aria-hidden="true">KM</span>
+          <b>Khadiija Cabdikariim Maxamed</b>
+          <span class="role" data-en="Education &amp; Vocational Training Lead">Madaxa Waxbarashada &amp; Xirfad-barista</span>
+          <small data-en="Runs the classrooms behind the walls — literacy, Qur'an study and the trades workshops.">Waxay maamushaa fasallada gidaarada gadaashood — akhris-qoris, waxbarasho Qur'aan iyo aqoon-is-weydaarsiga xirfadaha.</small>
+        </article>
+
+        <article class="member rv d3">
+          <span class="mono-av" aria-hidden="true">YB</span>
+          <b>Yaasiin Maxamuud Barre</b>
+          <span class="role" data-en="Case Data &amp; Records Officer">Sarkaalka Xogta &amp; Diiwaanka Kiisaska</span>
+          <small data-en="Keeps the case register: who is held where, since when, and what the file still needs.">Wuxuu haystaa diiwaanka kiisaska: cidda la hayo, meesha, waqtiga, iyo waxa faylku weli u baahan yahay.</small>
+        </article>
+      </div>
+    </div>
+
+    <!-- board -->
+    <div id="board" style="margin-top:clamp(46px,6vw,72px)">
+      <div class="rv">
+        <span class="eyebrow" data-en="Board &amp; advisors">Guddiga &amp; Latalinta</span>
+        <h2 class="h-m" style="margin-top:14px" data-en="Oversight that is independent of the people spending the money.">Kormeer ka madax-bannaan dadka lacagta wax ku qabta.</h2>
+      </div>
+
+      <div class="board-list rv d1">
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">QM</span>
+          <div>
+            <b>Prof. Cabdiqaadir Sheekh Maxamuud</b>
+            <span class="role" data-en="Board Member · Criminal law">Xubin Guddi · Sharciga dembiyada</span>
+          </div>
+        </div>
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">UJ</span>
+          <div>
+            <b>Dr. Ubax Maxamed Jibriil</b>
+            <span class="role" data-en="Board Member · Public health">Xubin Guddi · Caafimaadka guud</span>
+          </div>
+        </div>
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">NG</span>
+          <div>
+            <b>Nasteexo Cabdi Guuled</b>
+            <span class="role" data-en="Legal Counsel · Human rights">Lataliye Sharci · Xuquuqda insaanka</span>
+          </div>
+        </div>
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">CW</span>
+          <div>
+            <b>Sheekh Cabdullaahi Warsame</b>
+            <span class="role" data-en="Advisor · Islamic law &amp; mediation">Lataliye · Sharciga Islaamka &amp; dhex-dhexaadin</span>
+          </div>
+        </div>
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">HD</span>
+          <div>
+            <b>Hodan Cabdulqaadir Daahir</b>
+            <span class="role" data-en="Board Member · Finance &amp; audit">Xubin Guddi · Maaliyad &amp; hanti-dhawr</span>
+          </div>
+        </div>
+        <div class="board-row">
+          <span class="mono-av" aria-hidden="true">MK</span>
+          <div>
+            <b>Maxamuud Cismaan Kaariye</b>
+            <span class="role" data-en="Board Member · Former detainee representative">Xubin Guddi · Matalaha dadka hore loo xiray</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rv" style="margin-top:34px;display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <div class="ico" style="margin:0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      </div>
+      <p style="flex:1 1 340px" data-en="PRAA is always short of lawyers, doctors and teachers willing to give a few hours a month. If that is you, the next name on this page could be yours.">PRAA had iyo jeer way u baahan tahay qareeno, dhakhaatiir iyo macallimiin diyaar u ah inay bishii dhowr saacadood bixiyaan. Haddii aad taas tahay, magaca xiga ee boggan wuxuu noqon karaa kaaga.</p>
+      <a class="btn btn-sm" href="mailto:info@praa.org?subject=Pro%20bono"><span data-en="Volunteer with PRAA">La shaqee PRAA</span></a>
     </div>
   </div>
 </section>
@@ -1076,7 +1411,7 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
 
       <!-- ---- transparency column ---- -->
       <div class="rv d1" style="display:grid;gap:20px">
-        <div class="panel">
+        <div class="panel" id="allocation">
           <div class="panel-head"><h3 data-en="Where your money goes">Halka lacagtaadu tagto</h3></div>
           <div class="panel-body">
             <div class="donut-wrap">
@@ -1318,6 +1653,8 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
         <h4 data-en="Organization">Ururka</h4>
         <a href="#about" data-en="About PRAA">Ka saabsan PRAA</a>
         <a href="#programs" data-en="Programs">Barnaamijyada</a>
+        <a href="#team" data-en="Leadership team">Kooxda hoggaanka</a>
+        <a href="#board" data-en="Board &amp; advisors">Guddiga &amp; latalinta</a>
         <a href="#impact" data-en="Impact &amp; reports">Saamaynta &amp; warbixinno</a>
         <a href="#journey" data-en="How a case moves">Habka kiiska</a>
         <a href="#faq" data-en="Questions">Su'aalo</a>
@@ -1418,14 +1755,33 @@ footer a:hover{color:var(--gold-2);transform:translateX(4px)}
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  burger.addEventListener('click', () => {
-    const open = document.body.classList.toggle('menu-open');
+  /* categorized menu panel */
+  const panel = $('#menuPanel'), scrim = $('#menuScrim');
+  const setMenu = (open) => {
+    if (open) {
+      document.documentElement.style.setProperty(
+        '--menu-top', Math.round(nav.getBoundingClientRect().bottom) + 'px');
+    }
+    document.body.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      const first = $('.menu-cat a', panel);
+      if (first) setTimeout(() => first.focus({ preventScroll: true }), 120);
+    }
+  };
+  setMenu(false);
+
+  burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  scrim.addEventListener('click', () => setMenu(false));
+  $$('a', panel).forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      setMenu(false);
+      burger.focus({ preventScroll: true });
+    }
   });
-  $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
-    document.body.classList.remove('menu-open');
-    burger.setAttribute('aria-expanded', 'false');
-  }));
+  window.addEventListener('resize', () => setMenu(false));
 
   const navMap = new Map($$('#navLinks a').map(a => [a.getAttribute('href').slice(1), a]));
   const secObs = new IntersectionObserver(entries => {
