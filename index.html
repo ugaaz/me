@@ -77,8 +77,9 @@ a{color:inherit}
 .pill{font-size:14px;font-weight:600;padding:10px 18px;border-radius:999px;background:var(--fg);color:var(--bg);text-decoration:none;white-space:nowrap}
 
 /* Stage */
-.hero{position:relative;height:340vh}
-.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.hero{position:relative;height:340vh;height:340svh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;transform:translateZ(0);contain:paint}
+canvas{will-change:contents}
 canvas,.shine{position:absolute;inset:0;width:100%;height:100%}
 .shine{object-fit:fill;inset:auto;opacity:0;transition:opacity .6s ease;pointer-events:none}
 .shine.on{opacity:1}
@@ -118,7 +119,7 @@ h1 em{font-style:italic;color:var(--gold)}
 
 .meta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-align:right;display:grid;gap:10px;justify-items:end}
 .bar{width:140px;height:1px;background:var(--line);position:relative}
-.bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold)}
+.bar i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
 .cue{display:flex;align-items:center;gap:8px;color:var(--fg)}
 .cue i{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(1);transform-origin:bottom;opacity:0}}
@@ -417,94 +418,104 @@ h3{font-weight:600;margin:0}
 <script>
 (() => {
   const N = 120, root = document.documentElement;
-  const canvas = document.getElementById('film'), ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('film'), ctx = canvas.getContext('2d', { alpha: false });
   const hero = document.getElementById('hero'), stage = document.getElementById('stage');
   const shine = document.getElementById('shine'), sweep = document.getElementById('sweep');
-  const barFill = document.getElementById('barFill');
+  const barFill = document.getElementById('barFill'), top = document.querySelector('.top');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sets = { dark: [], light: [] };
-  let mode = null, current = -1, ended = false, D = 1;
+  let mode = null, ended = false, D = 1, W = 0, H = 0, L = null;
+  let target = 0, shown = 0, drawn = -1, loop = 0, heroTop = 0, span = 1;
 
   const pad = i => String(i + 1).padStart(3, '0');
+  // Load every frame and decode it ahead of time so scrolling never waits on a decode.
   function load(m) {
     if (sets[m].length) return;
     const dir = m === 'dark' ? 'moon' : 'sun';
     for (let i = 0; i < N; i++) {
+      const slot = { ready: false, src: null };
+      sets[m][i] = slot;
       const img = new Image();
-      img.decoding = 'async';
       img.src = `f/${dir}/${pad(i)}.webp`;
-      img.onload = () => { if (m === mode && (i === target() || current < 0)) draw(true); };
-      sets[m][i] = img;
+      const done = src => { slot.src = src; slot.ready = true; if (m === mode) { drawn = -1; kick(); } };
+      img.decode().then(() => {
+        if (window.createImageBitmap) return createImageBitmap(img).then(done, () => done(img));
+        done(img);
+      }).catch(() => { img.onload = () => done(img); });
     }
   }
   function isDark() {
     const t = root.dataset.theme;
     return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   }
+  const bg = () => getComputedStyle(root).getPropertyValue('--bg').trim() || '#000';
+
+  function measure() {
+    // Hero position in page coordinates; svh units keep this stable when the toolbar moves.
+    const r = hero.getBoundingClientRect();
+    heroTop = r.top + scrollY;
+    span = Math.max(1, hero.offsetHeight - stage.offsetHeight);
+  }
   function progress() {
     if (reduce) return 1;
-    const r = hero.getBoundingClientRect();
-    const span = hero.offsetHeight - stage.offsetHeight;
-    return Math.min(1, Math.max(0, -r.top / span));
+    return Math.min(1, Math.max(0, (scrollY - heroTop) / span));
   }
-  const target = () => Math.round(progress() * (N - 1));
-
   function size() {
-    D = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = stage.clientWidth * D;
-    canvas.height = stage.clientHeight * D;
-    draw(true);
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.round(stage.clientWidth * d), h = Math.round(stage.clientHeight * d);
+    measure();
+    if (w === W && h === H && d === D) return;   // toolbar show/hide: nothing to redo
+    D = d; W = w; H = h;
+    canvas.width = w; canvas.height = h;
+    L = null; drawn = -1; kick();
   }
-  function draw(force) {
-    const t = target();
-    if (!force && t === current) return;
-    // nearest loaded frame at or before target
-    let i = t, img;
-    while (i >= 0 && !((img = sets[mode][i]) && img.complete && img.naturalWidth)) i--;
-    if (i < 0) return;
-    current = t;
-    const cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
-    const L = layout(cw, ch, iw, ih);
-    if (L.fade) { ctx.fillStyle = bg(); ctx.fillRect(0, 0, cw, ch); }
-    ctx.drawImage(img, L.x, L.y, L.w, L.h);
-    if (L.fade) {
-      const y1 = L.y + L.h, y0 = y1 - ch * 0.14;
-      const g = ctx.createLinearGradient(0, y0, 0, y1);
-      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, bg());
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = g; ctx.fillRect(0, y0, cw, y1 - y0 + 1);
-    }
-  }
-  const bg = () => getComputedStyle(root).getPropertyValue('--bg').trim() || '#000';
-  // Wide screens: logo sits right of the headline. Phones: logo sits above the copy.
-  function layout(cw, ch, iw, ih) {
+  function layout(iw, ih) {
     let cx = 0.5, cy = 0.5, x, y, w, h, fade = false;
-    if (cw / ch < 0.9) {
-      h = ch * 0.54; w = h * iw / ih; x = (cw - w) / 2; y = 0; cy = 0.27; fade = true;
+    if (W / H < 0.9) {
+      h = H * 0.54; w = h * iw / ih; x = (W - w) / 2; y = 0; cy = 0.27; fade = true;
     } else {
-      if (cw > 760 * D) cx = 0.66;
-      const s = Math.max(cw / iw, ch / ih, (2 * Math.max(cx, 1 - cx) * cw) / iw);
-      w = iw * s; h = ih * s; x = cx * cw - w / 2; y = (ch - h) / 2;
+      if (W > 760 * D) cx = 0.66;
+      const s = Math.max(W / iw, H / ih, (2 * Math.max(cx, 1 - cx) * W) / iw);
+      w = iw * s; h = ih * s; x = cx * W - w / 2; y = (H - h) / 2;
     }
     stage.style.setProperty('--cx', (cx * 100) + '%');
     stage.style.setProperty('--cy', (cy * 100 * 0.96) + '%');
     stage.style.setProperty('--zone', (h / D * 0.5) + 'px');
     Object.assign(shine.style, { left: x / D + 'px', top: y / D + 'px', width: w / D + 'px', height: h / D + 'px' });
     shine.classList.toggle('portrait', fade);
-    return { x, y, w, h, fade };
+    return { x, y, w, h, fade, g: fade ? (() => { const y1 = y + h, y0 = y1 - H * 0.14, g = ctx.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, bg()); return { g, y0, y1 }; })() : null };
   }
-  const top = document.querySelector('.top');
+  function draw(i) {
+    const set = sets[mode];
+    let j = i, f;
+    while (j >= 0 && !((f = set[j]) && f.ready)) j--;
+    if (j < 0) { j = i; while (j < N && !((f = set[j]) && f.ready)) j++; }
+    if (!f || !f.ready) return;
+    if (j === drawn) return;
+    const iw = f.src.width || f.src.naturalWidth, ih = f.src.height || f.src.naturalHeight;
+    if (!L) L = layout(iw, ih);
+    ctx.fillStyle = bg(); ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(f.src, L.x, L.y, L.w, L.h);
+    if (L.g) { ctx.fillStyle = L.g.g; ctx.fillRect(0, L.g.y0, W, L.g.y1 - L.g.y0 + 1); }
+    drawn = j;
+  }
+  // One animation loop: the shown frame eases toward the scroll target, so touch scrolling glides.
+  function tick() {
+    const diff = target - shown;
+    shown = Math.abs(diff) < 0.05 ? target : shown + diff * 0.22;
+    draw(Math.round(shown));
+    loop = (shown !== target) ? requestAnimationFrame(tick) : 0;
+  }
+  function kick() { if (!loop) loop = requestAnimationFrame(tick); }
+
   function onScroll() {
-    top.classList.toggle('solid', hero.getBoundingClientRect().bottom < 80);
     const p = progress();
-    barFill.style.width = (p * 100).toFixed(1) + '%';
-    draw(false);
+    target = p * (N - 1);
+    barFill.style.transform = `scaleX(${p.toFixed(3)})`;
+    top.classList.toggle('solid', scrollY > heroTop + span + stage.offsetHeight - 80);
     const isEnd = p > 0.985;
-    if (isEnd !== ended) {
-      ended = isEnd;
-      stage.classList.toggle('ended', ended);
-      updateShine();
-    }
+    if (isEnd !== ended) { ended = isEnd; stage.classList.toggle('ended', ended); updateShine(); }
+    kick();
   }
   function updateShine() {
     const on = ended && mode === 'light';
@@ -517,10 +528,9 @@ h3{font-weight:600;margin:0}
     mode = m;
     root.dataset.mode = m;
     load(m);
-    draw(true);
+    L = null; drawn = -1; kick();
     updateShine();
-    // warm the other set after the first one
-    setTimeout(() => load(m === 'dark' ? 'light' : 'dark'), 1500);
+    setTimeout(() => load(m === 'dark' ? 'light' : 'dark'), 2500);
   }
 
   document.getElementById('themeToggle').addEventListener('click', () => {
@@ -535,11 +545,13 @@ h3{font-weight:600;margin:0}
 
   try { const saved = localStorage.getItem('ugaaz-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setMode);
-  addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
-  addEventListener('resize', size);
+  addEventListener('scroll', onScroll, { passive: true });
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { size(); onScroll(); }, 120); });
+  addEventListener('load', () => { measure(); onScroll(); });
   setMode();
   size();
   onScroll();
+  shown = target;
 })();
 </script>
 
