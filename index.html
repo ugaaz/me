@@ -54,7 +54,7 @@
   --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}
 
 *{box-sizing:border-box}
-html,body{background:var(--bg);color:var(--fg)}
+html,body{background:var(--bg);color:var(--fg);overscroll-behavior-y:none}
 body{font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
@@ -184,7 +184,7 @@ h3{font-weight:600;margin:0}
 .contact{padding:clamp(88px,13vw,170px) clamp(16px,4vw,48px);border-top:1px solid var(--line);background:radial-gradient(60% 80% at 80% 0%,var(--gold-soft),transparent 70%)}
 .contact .in{display:grid;gap:22px}
 .contact h2{font-size:clamp(40px,6vw,88px);max-width:16ch}
-.contact-lines{margin:20px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}
+.contact-lines{margin:20px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}
 .contact-lines dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .contact-lines dd{margin:6px 0 0;font-size:18px;user-select:all}
 .foot{padding:28px clamp(16px,4vw,48px) calc(env(safe-area-inset-bottom,0px) + 28px);border-top:1px solid var(--line)}
@@ -192,7 +192,6 @@ h3{font-weight:600;margin:0}
 .foot p{margin:0;color:var(--muted);font-size:14px}
 @media (max-width:960px){
   .cards{grid-template-columns:1fr}
-  .contact-lines{grid-template-columns:1fr 1fr}
   .steps{grid-template-columns:1fr 1fr}
   .split{grid-template-columns:1fr}
 }
@@ -395,13 +394,11 @@ h3{font-weight:600;margin:0}
       <h2>Have an idea, capital, or a company coming to East Africa?</h2>
       <p class="lead">Let's talk. WhatsApp is the fastest way to reach me, or email for proposals.</p>
       <div class="ctas">
-        <a class="btn primary" href="https://wa.me/252613333489" target="_blank" rel="noopener">Message me on WhatsApp</a>
+        <a class="btn primary" href="https://wa.me/252613333489" target="_blank" rel="noopener">WhatsApp +252 61 333 3489</a>
         <a class="btn" href="mailto:hi@ugaaz.com">Email hi@ugaaz.com</a>
       </div>
       <dl class="contact-lines">
-        <div><dt>WhatsApp</dt><dd>+252 61 333 3489</dd></div>
-        <div><dt>Email</dt><dd>hi@ugaaz.com</dd></div>
-        <div><dt>Proposals &amp; contracts</dt><dd>Arafat Abdullahi Ali</dd></div>
+                <div><dt>Proposals &amp; contracts</dt><dd>Arafat Abdullahi Ali</dd></div>
         <div><dt>Based in</dt><dd>Mogadishu &amp; Nairobi</dd></div>
       </dl>
     </div>
@@ -501,10 +498,9 @@ h3{font-weight:600;margin:0}
   }
   // One animation loop: the shown frame eases toward the scroll target, so touch scrolling glides.
   function tick() {
-    const diff = target - shown;
-    shown = Math.abs(diff) < 0.05 ? target : shown + diff * 0.22;
+    shown = target;
     draw(Math.round(shown));
-    loop = (shown !== target) ? requestAnimationFrame(tick) : 0;
+    loop = 0;
   }
   function kick() { if (!loop) loop = requestAnimationFrame(tick); }
 
