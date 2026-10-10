@@ -29,7 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: one pinned full-screen stage; the crown film scrubs with scroll, copy anchored bottom-left like a title card. */
 :root{
@@ -42,9 +42,9 @@
   --scrim:rgba(228,222,213,.92);
   --btn-fg:#F5F1EA;
   --panel:#DCD5CA;
-  --display:"Instrument Serif","Times New Roman",Georgia,serif;
-  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#060606;--fg:#EDEAE4;--muted:#9C978F;--line:rgba(237,234,228,.14);
@@ -54,8 +54,8 @@
   --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}
 
 *{box-sizing:border-box}
-html,body{background:var(--bg);color:var(--fg);overscroll-behavior-y:none}
-body{font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--body);font-optical-sizing:auto;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
@@ -66,7 +66,7 @@ a{color:inherit}
 .top{transition:background .3s}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .mark{width:26px;height:32px;background:currentColor;-webkit-mask:url(f/mark.png) center/contain no-repeat;mask:url(f/mark.png) center/contain no-repeat}
-.word{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.32em}
+.word{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.3em}
 .nav{display:flex;gap:28px;margin-left:auto;font-size:14px;color:var(--muted)}
 .nav a{text-decoration:none;transition:color .2s}.nav a:hover{color:var(--fg)}
 .tools{display:flex;gap:10px;align-items:center}
@@ -78,8 +78,7 @@ a{color:inherit}
 
 /* Stage */
 .hero{position:relative;height:340vh;height:340svh}
-.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;transform:translateZ(0);contain:paint}
-canvas{will-change:contents}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 canvas,.shine{position:absolute;inset:0;width:100%;height:100%}
 .shine{object-fit:fill;inset:auto;opacity:0;transition:opacity .6s ease;pointer-events:none}
 .shine.on{opacity:1}
@@ -109,7 +108,7 @@ canvas,.shine{position:absolute;inset:0;width:100%;height:100%}
   border:1px solid var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .copy .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none}
 .copy .eyebrow span+span::before{color:var(--gold);opacity:1}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,7.4vw,112px);line-height:.95;letter-spacing:-.015em;margin:18px 0 0;max-width:12ch;text-wrap:balance}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(42px,6.2vw,96px);line-height:1;letter-spacing:-.02em;margin:18px 0 0;max-width:12ch;text-wrap:balance}
 h1 em{font-style:italic;color:var(--gold)}
 .sub{max-width:46ch;color:var(--muted);font-size:clamp(15px,1.25vw,18px);margin:22px 0 0;text-wrap:pretty}
 .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
@@ -131,7 +130,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .strip b{color:var(--fg);font-weight:500}
 .next{padding:clamp(72px,12vw,140px) clamp(16px,4vw,48px)}
 .next .in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
-.next h2{font-family:var(--display);font-weight:400;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:14px 0 0;text-wrap:balance}
+.next h2{font-family:var(--display);font-weight:500;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:14px 0 0;text-wrap:balance}
 .next p{color:var(--muted);margin:0 0 18px;max-width:58ch}
 
 /* Sections */
@@ -139,20 +138,20 @@ h1 em{font-style:italic;color:var(--gold)}
 .sec{padding:clamp(72px,11vw,140px) clamp(16px,4vw,48px);border-top:1px solid var(--line)}
 .sec.alt{background:var(--panel)}
 .sec-head{display:grid;gap:14px;margin-bottom:clamp(36px,5vw,64px);max-width:760px}
-.sec h2,.contact h2,.split h2{font-family:var(--display);font-weight:400;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:0;text-wrap:balance}
+.sec h2,.contact h2,.split h2{font-family:var(--display);font-weight:500;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:0;text-wrap:balance}
 .lead{color:var(--muted);font-size:clamp(16px,1.3vw,19px);max-width:56ch;margin:0;text-wrap:pretty}
 h3{font-weight:600;margin:0}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
 .card{display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid var(--fg)}
 .card .for{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0}
-.card h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,2.6vw,36px);line-height:1.05}
+.card h3{font-family:var(--display);font-weight:500;font-size:clamp(28px,2.6vw,36px);line-height:1.05}
 .card p{color:var(--muted);margin:0}
 .more{margin-top:auto;padding-top:8px;font-weight:600;text-decoration:none;color:var(--fg);display:inline-flex;gap:8px}
 .more span{transition:transform .2s;color:var(--gold)}.more:hover span{transform:translateX(4px)}
 .ventures{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .venture{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:8px clamp(24px,5vw,72px);padding:clamp(28px,4vw,44px) 0;border-bottom:1px solid var(--line)}
 .v-name{display:flex;align-items:center;gap:14px;flex-wrap:wrap;grid-row:span 2}
-.v-name h3{font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1}
+.v-name h3{font-family:var(--display);font-weight:500;font-size:clamp(40px,5vw,72px);line-height:1}
 .status{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;gap:8px}
 .status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6}
 .status.live{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
@@ -170,7 +169,7 @@ h3{font-weight:600;margin:0}
 .steps li{position:relative;padding-top:28px;border-top:1px solid var(--line);display:grid;gap:10px;align-content:start}
 .steps li::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 .steps .n{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
-.steps h3{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
+.steps h3{font-family:var(--display);font-weight:500;font-size:32px;line-height:1}
 .steps p{margin:0;color:var(--muted);font-size:15px}
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:start}
 .split>div{display:grid;gap:18px}
@@ -179,7 +178,7 @@ h3{font-weight:600;margin:0}
 .reasons dt{font-weight:600}.reasons dd{margin:0;color:var(--muted)}
 .notes{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .notes li{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 0;border-bottom:1px solid var(--line)}
-.notes span{font-family:var(--display);font-size:clamp(22px,2.2vw,30px);line-height:1.15;min-width:0}
+.notes span{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.2vw,30px);line-height:1.15;min-width:0}
 .notes em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .contact{padding:clamp(88px,13vw,170px) clamp(16px,4vw,48px);border-top:1px solid var(--line);background:radial-gradient(60% 80% at 80% 0%,var(--gold-soft),transparent 70%)}
 .contact .in{display:grid;gap:22px}
@@ -210,7 +209,7 @@ h3{font-weight:600;margin:0}
   .copy .eyebrow span+span::before{margin-right:7px}
   .meta{display:none}
   .fade{height:58%}
-  h1{font-size:clamp(36px,10vw,48px)}
+  h1{font-size:clamp(34px,9.4vw,44px)}
   .sub{margin-top:14px}.ctas{margin-top:20px}
   .next .in{grid-template-columns:1fr}
 }
@@ -504,7 +503,11 @@ h3{font-weight:600;margin:0}
   }
   function kick() { if (!loop) loop = requestAnimationFrame(tick); }
 
+  let pastHero = false;
   function onScroll() {
+    const beyond = scrollY > heroTop + span + stage.offsetHeight;
+    if (beyond && pastHero) return;
+    pastHero = beyond;
     const p = progress();
     target = p * (N - 1);
     barFill.style.transform = `scaleX(${p.toFixed(3)})`;
@@ -542,7 +545,7 @@ h3{font-weight:600;margin:0}
   try { const saved = localStorage.getItem('ugaaz-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setMode);
   addEventListener('scroll', onScroll, { passive: true });
-  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { size(); onScroll(); }, 120); });
+  let rz, lastW = innerWidth; addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(rz); rz = setTimeout(() => { size(); onScroll(); }, 120); });
   addEventListener('load', () => { measure(); onScroll(); });
   setMode();
   size();
