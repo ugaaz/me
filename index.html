@@ -29,7 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght,SOFT@9..144,600,100&display=swap">
 <style>
 /* Layout: one pinned full-screen stage; the crown film scrubs with scroll, copy anchored bottom-left like a title card. */
 :root{
@@ -42,16 +42,17 @@
   --scrim:rgba(228,222,213,.92);
   --btn-fg:#F5F1EA;
   --panel:#DCD5CA;
+  --bogso-ink:#0E2A33;
   --display:"Instrument Serif","Times New Roman",Georgia,serif;
   --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#060606;--fg:#EDEAE4;--muted:#9C978F;--line:rgba(237,234,228,.14);
-  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}}
+  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;--bogso-ink:#FFFFFF;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#060606;--fg:#EDEAE4;--muted:#9C978F;--line:rgba(237,234,228,.14);
-  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}
+  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;--bogso-ink:#FFFFFF;color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{background:var(--bg);color:var(--fg)}
@@ -156,6 +157,16 @@ h3{font-weight:600;margin:0}
 .status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6}
 .status.live{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
 .status.live::before{opacity:1;box-shadow:0 0 0 4px var(--gold-soft)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.v-logo{display:flex;align-items:center;min-height:clamp(48px,5vw,64px)}
+.v-logo img{height:clamp(44px,4.6vw,60px);width:auto;max-width:min(260px,100%);object-fit:contain}
+.v-logo .bg-d{display:none}
+:root[data-mode="dark"] .v-logo .bg-l{display:none}:root[data-mode="dark"] .v-logo .bg-d{display:block}
+.v-logo.nologo img{display:none!important}
+.v-logo.nologo .sr{position:static;width:auto;height:auto;clip:auto;font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1}
+.v-logo.bogso{gap:12px}
+.v-logo.bogso svg{height:clamp(36px,3.8vw,48px);width:auto;overflow:visible}
+.v-logo .bw{font-family:"Fraunces",var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:clamp(38px,4vw,52px);line-height:1;letter-spacing:.02em;color:var(--bogso-ink)}
 .v-meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);margin:0}
 .v-meta a{color:var(--fg);text-underline-offset:3px}
 .v-body{margin:0;max-width:60ch}
@@ -270,7 +281,7 @@ h3{font-weight:600;margin:0}
       </div>
       <div>
         <p>I'm Ugaaz Arafat, an entrepreneur based in Mogadishu and Nairobi. I spot what Somali markets are missing and build businesses that fit how people here live, buy and pay.</p>
-        <p>Before founding my own companies, I worked in accounting at Mogadishu businesses including Tamarso Solar Energy, Habeb Mental Hospitals and Hayat Market. That taught me how businesses here actually run: cash, suppliers, and customers who pay by mobile money.</p>
+        <p>Before founding my own companies, I spent years in accounting across energy, healthcare and retail businesses. That taught me how businesses here actually run: cash, suppliers, and customers who pay by mobile money.</p>
         <p>I hold an MBA, a BBA, a B.Sc. in Computer Science from India, and a Post-Graduate Diploma in Banking and Finance.</p>
       </div>
     </div>
@@ -313,12 +324,12 @@ h3{font-weight:600;margin:0}
       </header>
       <ol class="ventures">
         <li class="venture">
-          <div class="v-name"><h3>Bagaash</h3><span class="status live">Live</span></div>
+          <div class="v-name"><h3 class="v-logo"><span class="sr">Bagaash</span><img class="bg-l" onerror="this.closest('.v-logo').classList.add('nologo')" src="https://bagaash.com/wp-content/themes/bagaash-theme-9/assets/img/brand/bagaash-logo-light.svg" alt="" width="240" height="64" loading="lazy"><img class="bg-d" onerror="this.closest('.v-logo').classList.add('nologo')" src="https://bagaash.com/wp-content/themes/bagaash-theme-9/assets/img/brand/bagaash-logo-dark.svg" alt="" width="240" height="64" loading="lazy"></h3><span class="status live">Live</span></div>
           <p class="v-meta"><a href="https://bagaash.com" target="_blank" rel="noopener">bagaash.com</a> · Founder · Since July 2025</p>
           <p class="v-body">Monthly grocery bundles delivered to Mogadishu families. Customers order on WhatsApp and pay with EVC Plus, eDahab or Waafi.</p>
         </li>
         <li class="venture">
-          <div class="v-name"><h3>Bogso</h3><span class="status live">Live</span></div>
+          <div class="v-name"><h3 class="v-logo bogso"><span class="sr">Bogso</span><svg viewBox="-4 -4 208 192" aria-hidden="true"><path d="M100 174C62 146 8 112 8 60 8 30 30 8 58 8c20 0 34 12 42 28 8-16 22-28 42-28 28 0 50 22 50 52 0 52-54 86-92 114Z" fill="#E5383B"/><path d="M32 94h40l12-24 14 52 14-70 12 48 8-6h36" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="bw" aria-hidden="true">BOGSO</span></h3><span class="status live">Live</span></div>
           <p class="v-meta"><a href="https://bogso.so" target="_blank" rel="noopener">bogso.so</a> · CEO</p>
           <p class="v-body">Home healthcare in Mogadishu. Nurses visit patients at home for basic care, wound treatment and sample collection, and a doctor reviews results remotely. Care costs much less than a hospital visit, and the model creates paid work for nursing and medical graduates. "Bogso" means "get well" in Somali.</p>
         </li>
