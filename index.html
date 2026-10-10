@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Ugaaz Arafat","alternateName":"Arafat Abdullahi Ali",
- "url":"https://ugaaz.com/","image":"https://ugaaz.com/f/og.jpg","jobTitle":"Founder and Venture Builder",
+ "url":"https://ugaaz.com/","image":"https://ugaaz.com/f/og.jpg","jobTitle":"Founder and Venture Builder","email":"mailto:hi@ugaaz.com",
  "brand":{"@type":"Brand","name":"Ugaaz"},
  "address":[{"@type":"PostalAddress","addressLocality":"Mogadishu","addressCountry":"SO"},{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"}],
  "knowsLanguage":["so","en"],
@@ -177,7 +177,7 @@ h3{font-weight:600;margin:0}
 .contact{padding:clamp(88px,13vw,170px) clamp(16px,4vw,48px);border-top:1px solid var(--line);background:radial-gradient(60% 80% at 80% 0%,var(--gold-soft),transparent 70%)}
 .contact .in{display:grid;gap:22px}
 .contact h2{font-size:clamp(40px,6vw,88px);max-width:16ch}
-.contact-lines{margin:20px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}
+.contact-lines{margin:20px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}
 .contact-lines dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .contact-lines dd{margin:6px 0 0;font-size:18px;user-select:all}
 .foot{padding:28px clamp(16px,4vw,48px) calc(env(safe-area-inset-bottom,0px) + 28px);border-top:1px solid var(--line)}
@@ -185,6 +185,7 @@ h3{font-weight:600;margin:0}
 .foot p{margin:0;color:var(--muted);font-size:14px}
 @media (max-width:960px){
   .cards{grid-template-columns:1fr}
+  .contact-lines{grid-template-columns:1fr 1fr}
   .steps{grid-template-columns:1fr 1fr}
   .split{grid-template-columns:1fr}
 }
@@ -385,12 +386,14 @@ h3{font-weight:600;margin:0}
     <div class="in">
       <div class="eyebrow"><span>Contact</span></div>
       <h2>Have an idea, capital, or a company coming to East Africa?</h2>
-      <p class="lead">Let's talk. WhatsApp is the fastest way to reach me.</p>
+      <p class="lead">Let's talk. WhatsApp is the fastest way to reach me, or email for proposals.</p>
       <div class="ctas">
         <a class="btn primary" href="https://wa.me/252613333489" target="_blank" rel="noopener">Message me on WhatsApp</a>
+        <a class="btn" href="mailto:hi@ugaaz.com">Email hi@ugaaz.com</a>
       </div>
       <dl class="contact-lines">
         <div><dt>WhatsApp</dt><dd>+252 61 333 3489</dd></div>
+        <div><dt>Email</dt><dd>hi@ugaaz.com</dd></div>
         <div><dt>Proposals &amp; contracts</dt><dd>Arafat Abdullahi Ali</dd></div>
         <div><dt>Based in</dt><dd>Mogadishu &amp; Nairobi</dd></div>
       </dl>
