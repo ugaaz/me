@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ugaaz Arafat | Venture Builder in Mogadishu, Somalia</title>
+<meta name="description" content="Ugaaz Arafat builds proven business models in Somalia, Kenya and Djibouti. Founder of Bagaash and Bogso, based in Mogadishu.">
+<link rel="canonical" href="https://ugaaz.com/">
+<meta name="theme-color" content="#060606" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#E4DED5" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="/f/favicon.png">
+<link rel="apple-touch-icon" href="/f/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ugaaz">
+<meta property="og:url" content="https://ugaaz.com/">
+<meta property="og:title" content="Ugaaz Arafat | Proven businesses, built for the Horn of Africa">
+<meta property="og:description" content="Founder and venture builder in Mogadishu. I adapt business models that already work elsewhere for Somalia, Kenya and Djibouti.">
+<meta property="og:image" content="https://ugaaz.com/f/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Ugaaz Arafat","alternateName":"Arafat Abdullahi Ali",
+ "url":"https://ugaaz.com/","image":"https://ugaaz.com/f/og.jpg","jobTitle":"Founder and Venture Builder",
+ "brand":{"@type":"Brand","name":"Ugaaz"},
+ "address":{"@type":"PostalAddress","addressLocality":"Mogadishu","addressCountry":"SO"},
+ "knowsLanguage":["so","en"],
+ "founder":[{"@type":"Organization","name":"Bagaash","url":"https://bagaash.com"},{"@type":"Organization","name":"Bogso","url":"https://bogso.so"}]}
+</script>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one pinned full-screen stage; the crown film scrubs with scroll, copy anchored bottom-left like a title card. */
+:root{
+  --bg:#E4DED5;        /* warm stone, matches the light film's studio */
+  --fg:#16130F;
+  --muted:#5E5650;
+  --line:rgba(22,19,15,.16);
+  --gold:#8E6E33;      /* deeper gold so it reads on stone */
+  --gold-soft:rgba(142,110,51,.14);
+  --scrim:rgba(228,222,213,.92);
+  --btn-fg:#F5F1EA;
+  --panel:#DCD5CA;
+  --display:"Instrument Serif","Times New Roman",Georgia,serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#060606;--fg:#EDEAE4;--muted:#9C978F;--line:rgba(237,234,228,.14);
+  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#060606;--fg:#EDEAE4;--muted:#9C978F;--line:rgba(237,234,228,.14);
+  --gold:#C9A45C;--gold-soft:rgba(201,164,92,.16);--scrim:rgba(6,6,6,.9);--btn-fg:#0B0A08;--panel:#0D0C0B;color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+/* Header */
+.top{position:fixed;inset:0 0 auto 0;z-index:20;padding:calc(env(safe-area-inset-top,0px) + 18px) clamp(16px,4vw,48px) 18px;
+  display:flex;align-items:center;gap:24px}
+.top.solid{background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top{transition:background .3s}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.mark{width:26px;height:32px;background:currentColor;-webkit-mask:url(f/mark.png) center/contain no-repeat;mask:url(f/mark.png) center/contain no-repeat}
+.word{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.32em}
+.nav{display:flex;gap:28px;margin-left:auto;font-size:14px;color:var(--muted)}
+.nav a{text-decoration:none;transition:color .2s}.nav a:hover{color:var(--fg)}
+.tools{display:flex;gap:10px;align-items:center}
+.toggle{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;display:grid;place-items:center}
+.toggle svg{width:18px;height:18px}
+.toggle .sun{display:none}
+:root[data-mode="dark"] .toggle .sun{display:block}:root[data-mode="dark"] .toggle .moon{display:none}
+.pill{font-size:14px;font-weight:600;padding:10px 18px;border-radius:999px;background:var(--fg);color:var(--bg);text-decoration:none;white-space:nowrap}
+
+/* Stage */
+.hero{position:relative;height:340vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+canvas,.shine{position:absolute;inset:0;width:100%;height:100%}
+.shine{object-fit:fill;inset:auto;opacity:0;transition:opacity .6s ease;pointer-events:none}
+.shine.on{opacity:1}
+.shine.portrait{-webkit-mask:linear-gradient(#000 74%,transparent);mask:linear-gradient(#000 74%,transparent)}
+.sweep{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(115deg,transparent 40%,rgba(201,164,92,.0) 44%,rgba(201,164,92,.38) 50%,rgba(201,164,92,0) 56%,transparent 60%);
+  background-size:300% 100%;background-position:100% 0;mix-blend-mode:screen;
+  -webkit-mask:radial-gradient(calc(var(--zone,400px) * .6) at var(--cx,50%) var(--cy,48%),#000 0 50%,transparent 100%);mask:radial-gradient(calc(var(--zone,400px) * .6) at var(--cx,50%) var(--cy,48%),#000 0 50%,transparent 100%)}
+.sweep.go{animation:sweep 1.3s cubic-bezier(.4,0,.2,1)}
+@keyframes sweep{0%{opacity:1;background-position:100% 0}100%{opacity:1;background-position:0 0}}
+.glow{position:absolute;left:var(--cx,50%);top:var(--cy,48%);width:calc(var(--zone,400px) * .9);aspect-ratio:1;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(var(--gold-soft),transparent 70%);opacity:0;transition:opacity 1s;pointer-events:none}
+.ended .glow{opacity:1;animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{50%{scale:1.12}}
+.hit{position:absolute;left:var(--cx,50%);top:var(--cy,48%);width:calc(var(--zone,400px) * .55);aspect-ratio:3/4;translate:-50% -50%;border:0;background:transparent;cursor:pointer;border-radius:24px}
+
+.fade{position:absolute;inset:auto 0 0 0;height:62%;pointer-events:none;
+  background:linear-gradient(to top,var(--scrim) 0%,color-mix(in srgb,var(--scrim) 60%,transparent) 45%,transparent 100%)}
+
+.copy{position:absolute;left:clamp(16px,4vw,48px);right:clamp(16px,4vw,48px);bottom:calc(env(safe-area-inset-bottom,0px) + clamp(28px,6vh,64px));
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:32px;pointer-events:none}
+.copy>*{pointer-events:auto;min-width:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);display:flex;gap:10px;flex-wrap:wrap}
+.eyebrow span+span::before{content:"/";margin-right:10px;opacity:.5}
+.copy .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;
+  color:var(--fg);font-weight:500;background:color-mix(in srgb,var(--bg) 72%,transparent);
+  border:1px solid var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.copy .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none}
+.copy .eyebrow span+span::before{color:var(--gold);opacity:1}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,7.4vw,112px);line-height:.95;letter-spacing:-.015em;margin:18px 0 0;max-width:12ch;text-wrap:balance}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{max-width:46ch;color:var(--muted);font-size:clamp(15px,1.25vw,18px);margin:22px 0 0;text-wrap:pretty}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line)}
+.btn.primary{background:var(--gold);color:var(--btn-fg);border-color:transparent}
+.btn svg{width:18px;height:18px}
+
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-align:right;display:grid;gap:10px;justify-items:end}
+.bar{width:140px;height:1px;background:var(--line);position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold)}
+.cue{display:flex;align-items:center;gap:8px;color:var(--fg)}
+.cue i{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(1);transform-origin:bottom;opacity:0}}
+.ended .cue{opacity:0;transition:opacity .4s}
+
+/* After the hero */
+.strip{border-block:1px solid var(--line);padding-inline:clamp(16px,4vw,48px)}
+.strip ul{list-style:none;margin:0 auto;padding:22px 0;max-width:1200px;display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.strip b{color:var(--fg);font-weight:500}
+.next{padding:clamp(72px,12vw,140px) clamp(16px,4vw,48px)}
+.next .in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
+.next h2{font-family:var(--display);font-weight:400;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:14px 0 0;text-wrap:balance}
+.next p{color:var(--muted);margin:0 0 18px;max-width:58ch}
+
+/* Sections */
+.in{max-width:1200px;margin:0 auto}
+.sec{padding:clamp(72px,11vw,140px) clamp(16px,4vw,48px);border-top:1px solid var(--line)}
+.sec.alt{background:var(--panel)}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(36px,5vw,64px);max-width:760px}
+.sec h2,.contact h2,.split h2{font-family:var(--display);font-weight:400;font-size:clamp(36px,4.6vw,64px);line-height:1;margin:0;text-wrap:balance}
+.lead{color:var(--muted);font-size:clamp(16px,1.3vw,19px);max-width:56ch;margin:0;text-wrap:pretty}
+h3{font-weight:600;margin:0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.card{display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid var(--fg)}
+.card .for{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0}
+.card h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,2.6vw,36px);line-height:1.05}
+.card p{color:var(--muted);margin:0}
+.more{margin-top:auto;padding-top:8px;font-weight:600;text-decoration:none;color:var(--fg);display:inline-flex;gap:8px}
+.more span{transition:transform .2s;color:var(--gold)}.more:hover span{transform:translateX(4px)}
+.ventures{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.venture{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:8px clamp(24px,5vw,72px);padding:clamp(28px,4vw,44px) 0;border-bottom:1px solid var(--line)}
+.v-name{display:flex;align-items:center;gap:14px;flex-wrap:wrap;grid-row:span 2}
+.v-name h3{font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6}
+.status.live{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
+.status.live::before{opacity:1;box-shadow:0 0 0 4px var(--gold-soft)}
+.v-meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);margin:0}
+.v-meta a{color:var(--fg);text-underline-offset:3px}
+.v-body{margin:0;max-width:60ch}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(16px,2vw,28px);counter-reset:s}
+.steps li{position:relative;padding-top:28px;border-top:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.steps li::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.steps .n{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em}
+.steps h3{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
+.steps p{margin:0;color:var(--muted);font-size:15px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:start}
+.split>div{display:grid;gap:18px}
+.reasons{margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.reasons div{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.reasons dt{font-weight:600}.reasons dd{margin:0;color:var(--muted)}
+.notes{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.notes li{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 0;border-bottom:1px solid var(--line)}
+.notes span{font-family:var(--display);font-size:clamp(22px,2.2vw,30px);line-height:1.15;min-width:0}
+.notes em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.contact{padding:clamp(88px,13vw,170px) clamp(16px,4vw,48px);border-top:1px solid var(--line);background:radial-gradient(60% 80% at 80% 0%,var(--gold-soft),transparent 70%)}
+.contact .in{display:grid;gap:22px}
+.contact h2{font-size:clamp(40px,6vw,88px);max-width:16ch}
+.contact-lines{margin:20px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}
+.contact-lines dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.contact-lines dd{margin:6px 0 0;font-size:18px;user-select:all}
+.foot{padding:28px clamp(16px,4vw,48px) calc(env(safe-area-inset-bottom,0px) + 28px);border-top:1px solid var(--line)}
+.foot .in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot p{margin:0;color:var(--muted);font-size:14px}
+@media (max-width:960px){
+  .cards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .venture{grid-template-columns:1fr}.v-name{grid-row:auto}
+  .steps{grid-template-columns:1fr}
+  .reasons div{grid-template-columns:1fr;gap:4px}
+  .notes li{flex-direction:column;gap:6px}
+  .contact-lines{grid-template-columns:1fr}
+}
+
+@media (max-width:760px){
+  .nav{display:none}.tools{margin-left:auto}.pill{display:none}
+  .copy{grid-template-columns:1fr}
+  .meta{display:none}
+  .fade{height:58%}
+  h1{font-size:clamp(36px,10vw,48px)}
+  .sub{margin-top:14px}.ctas{margin-top:20px}
+  .next .in{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.hero{height:100svh}.cue i,.ended .glow{animation:none}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#top" aria-label="Ugaaz home"><span class="mark" aria-hidden="true"></span><span class="word">UGAAZ</span></a>
+  <nav class="nav" aria-label="Main"><a href="#about">About</a><a href="#services">Services</a><a href="#ventures">Ventures</a><a href="#insights">Insights</a></nav>
+  <div class="tools">
+    <button class="toggle" id="themeToggle" type="button" aria-label="Switch light or dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <a class="pill" href="https://wa.me/252613333489" target="_blank" rel="noopener">Let's talk</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="stage" id="stage">
+      <canvas id="film" aria-hidden="true"></canvas>
+      <video class="shine" id="shine" src="f/shine.mp4" muted playsinline loop preload="auto" aria-hidden="true"></video>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="sweep" id="sweep" aria-hidden="true"></div>
+      <button class="hit" id="hit" type="button" aria-label="Play the crown shine"></button>
+      <div class="fade" aria-hidden="true"></div>
+
+      <div class="copy">
+        <div>
+          <div class="eyebrow"><span>Ugaaz Arafat</span><span>Founder</span><span>Venture builder</span></div>
+          <h1>Proven businesses, built for the <em>Horn of Africa.</em></h1>
+          <p class="sub">I find business models that already work in other markets, adapt them for Somalia, Kenya and Djibouti, and run them until they make money.</p>
+          <div class="ctas">
+            <a class="btn primary" href="https://wa.me/252613333489" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.9.9-2.1c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1.9 2 1.2 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
+              Message me on WhatsApp
+            </a>
+            <a class="btn" href="#ventures">See my ventures</a>
+          </div>
+        </div>
+        <div class="meta" aria-hidden="true">
+          <span>2.0469° N &nbsp; 45.3182° E</span>
+          <span>MOGADISHU, SOMALIA</span>
+          <span class="bar"><i id="barFill"></i></span>
+          <span class="cue"><i></i>SCROLL TO REVEAL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="At a glance">
+    <ul><li><b>2</b> live ventures</li><li>Based in <b>Mogadishu</b></li><li><b>Somali</b> &amp; <b>English</b></li><li><b>MBA</b> · Banking &amp; Finance</li></ul>
+  </section>
+
+  <section class="next" id="about">
+    <div class="in">
+      <div>
+        <div class="eyebrow"><span>About</span></div>
+        <h2>I build what the market is missing.</h2>
+      </div>
+      <div>
+        <p>I'm Ugaaz Arafat, an entrepreneur based in Mogadishu. I study businesses that already work in other markets, then build local versions for Somali customers.</p>
+        <p>Before founding my own companies, I worked in accounting at Mogadishu businesses including Tamarso Solar Energy, Habeb Mental Hospitals and Hayat Market. That taught me how businesses here actually run: cash, suppliers, and customers who pay by mobile money.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <div class="in">
+      <header class="sec-head">
+        <div class="eyebrow"><span>Services</span></div>
+        <h2>Three ways to work with me</h2>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <p class="for">For investors and partners</p>
+          <h3>Venture building</h3>
+          <p>You bring an idea or capital. I validate the market, build the brand and website, set up suppliers and payments, and launch. You get a running business, not a slide deck.</p>
+          <a class="more" href="https://wa.me/252613333489" target="_blank" rel="noopener">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+        </article>
+        <article class="card">
+          <p class="for">For companies entering the region</p>
+          <h3>Market entry</h3>
+          <p>For companies coming into Somalia, Kenya or Djibouti. I handle local research and pricing, find suppliers and partners, set up mobile-money payments, and run operations on the ground.</p>
+          <a class="more" href="https://wa.me/252613333489" target="_blank" rel="noopener">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+        </article>
+        <article class="card">
+          <p class="for">For founders</p>
+          <h3>Operating partnerships</h3>
+          <p>You have the money or the skills but no local presence. I join as an operating partner and run day-to-day execution.</p>
+          <a class="more" href="https://wa.me/252613333489" target="_blank" rel="noopener">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="ventures">
+    <div class="in">
+      <header class="sec-head">
+        <div class="eyebrow"><span>Ventures</span></div>
+        <h2>Businesses I've built, and what's next</h2>
+      </header>
+      <ol class="ventures">
+        <li class="venture">
+          <div class="v-name"><h3>Bagaash</h3><span class="status live">Live</span></div>
+          <p class="v-meta"><a href="https://bagaash.com" target="_blank" rel="noopener">bagaash.com</a> · Founder · Since July 2025</p>
+          <p class="v-body">Monthly grocery bundles delivered to Mogadishu families. Customers order on WhatsApp and pay with EVC Plus, eDahab or Waafi.</p>
+        </li>
+        <li class="venture">
+          <div class="v-name"><h3>Bogso</h3><span class="status live">Live</span></div>
+          <p class="v-meta"><a href="https://bogso.so" target="_blank" rel="noopener">bogso.so</a> · CEO</p>
+          <p class="v-body">Home healthcare in Mogadishu. Nurses visit patients at home for basic care, wound treatment and sample collection, and a doctor reviews results remotely. Care costs much less than a hospital visit, and the model creates paid work for nursing and medical graduates. "Bogso" means "get well" in Somali.</p>
+        </li>
+        <li class="venture">
+          <div class="v-name"><h3>Bajaj ride app</h3><span class="status">Validating</span></div>
+          <p class="v-meta">Mogadishu · In research</p>
+          <p class="v-body">A platform that connects riders with the nearest available Bajaj, with shared rides for two passengers. Taxi apps already exist here; Bajaj passengers still have no platform.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="in">
+      <header class="sec-head">
+        <div class="eyebrow"><span>How I work</span></div>
+        <h2>From idea to income in five steps</h2>
+      </header>
+      <ol class="steps">
+        <li><span class="n">01</span><h3>Spot</h3><p>Find a model that is already proven in another market.</p></li>
+        <li><span class="n">02</span><h3>Test</h3><p>Check local demand, prices and competitors before spending big.</p></li>
+        <li><span class="n">03</span><h3>Adapt</h3><p>Rebuild it for local habits: WhatsApp ordering, mobile money, Somali and English.</p></li>
+        <li><span class="n">04</span><h3>Launch</h3><p>Set up the brand, website, suppliers and first customers.</p></li>
+        <li><span class="n">05</span><h3>Run</h3><p>Track the numbers weekly until it is profitable, then scale.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec alt" id="why">
+    <div class="in split">
+      <div>
+        <div class="eyebrow"><span>Why me</span></div>
+        <h2>The gap is here. So am I.</h2>
+        <p class="lead">Many services people take for granted in Nairobi, Dubai or Dhaka don't exist yet in Mogadishu. The people who fill those gaps will be the ones on the ground.</p>
+      </div>
+      <dl class="reasons">
+        <div><dt>On the ground</dt><dd>I live and operate in Mogadishu, not from abroad.</dd></div>
+        <div><dt>Numbers first</dt><dd>Finance and accounting training means every venture runs on real unit economics.</dd></div>
+        <div><dt>Built for how people pay</dt><dd>My ventures accept EVC Plus, eDahab and Waafi from day one.</dd></div>
+        <div><dt>Regional view</dt><dd>I've lived and worked in Somalia, Kenya and Bangladesh.</dd></div>
+        <div><dt>Languages</dt><dd>Somali and English.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="insights">
+    <div class="in">
+      <header class="sec-head">
+        <div class="eyebrow"><span>Insights</span></div>
+        <h2>Notes from building in Somalia</h2>
+        <p class="lead">What I'm learning about market gaps, and which models are worth bringing here. First notes are on the way.</p>
+      </header>
+      <ul class="notes">
+        <li><span>5 business models from Nairobi that Mogadishu doesn't have yet</span><em>Coming soon</em></li>
+        <li><span>Why WhatsApp is the real storefront in Somalia</span><em>Coming soon</em></li>
+        <li><span>What I learned launching a grocery subscription in Mogadishu</span><em>Coming soon</em></li>
+        <li><span>Home healthcare: the gap between hospitals and families</span><em>Coming soon</em></li>
+        <li><span>Designing a business around mobile money</span><em>Coming soon</em></li>
+        <li><span>A diaspora investor's checklist for backing a business in Somalia</span><em>Coming soon</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="in">
+      <div class="eyebrow"><span>Contact</span></div>
+      <h2>Have an idea, capital, or a company coming to East Africa?</h2>
+      <p class="lead">Let's talk. WhatsApp is the fastest way to reach me.</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://wa.me/252613333489" target="_blank" rel="noopener">Message me on WhatsApp</a>
+      </div>
+      <dl class="contact-lines">
+        <div><dt>WhatsApp</dt><dd>+252 61 333 3489</dd></div>
+        <div><dt>Proposals &amp; contracts</dt><dd>Arafat Abdullahi Ali</dd></div>
+        <div><dt>Location</dt><dd>Mogadishu, Somalia</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="in">
+    <a class="brand" href="#top" aria-label="Back to top"><span class="mark" aria-hidden="true"></span><span class="word">UGAAZ</span></a>
+    <p>&copy; 2026 Ugaaz · Mogadishu · Ventures: <a href="https://bagaash.com" target="_blank" rel="noopener">Bagaash</a>, <a href="https://bogso.so" target="_blank" rel="noopener">Bogso</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const N = 120, root = document.documentElement;
+  const canvas = document.getElementById('film'), ctx = canvas.getContext('2d');
+  const hero = document.getElementById('hero'), stage = document.getElementById('stage');
+  const shine = document.getElementById('shine'), sweep = document.getElementById('sweep');
+  const barFill = document.getElementById('barFill');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sets = { dark: [], light: [] };
+  let mode = null, current = -1, ended = false, D = 1;
+
+  const pad = i => String(i + 1).padStart(3, '0');
+  function load(m) {
+    if (sets[m].length) return;
+    const dir = m === 'dark' ? 'moon' : 'sun';
+    for (let i = 0; i < N; i++) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = `f/${dir}/${pad(i)}.webp`;
+      img.onload = () => { if (m === mode && (i === target() || current < 0)) draw(true); };
+      sets[m][i] = img;
+    }
+  }
+  function isDark() {
+    const t = root.dataset.theme;
+    return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function progress() {
+    if (reduce) return 1;
+    const r = hero.getBoundingClientRect();
+    const span = hero.offsetHeight - stage.offsetHeight;
+    return Math.min(1, Math.max(0, -r.top / span));
+  }
+  const target = () => Math.round(progress() * (N - 1));
+
+  function size() {
+    D = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = stage.clientWidth * D;
+    canvas.height = stage.clientHeight * D;
+    draw(true);
+  }
+  function draw(force) {
+    const t = target();
+    if (!force && t === current) return;
+    // nearest loaded frame at or before target
+    let i = t, img;
+    while (i >= 0 && !((img = sets[mode][i]) && img.complete && img.naturalWidth)) i--;
+    if (i < 0) return;
+    current = t;
+    const cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
+    const L = layout(cw, ch, iw, ih);
+    if (L.fade) { ctx.fillStyle = bg(); ctx.fillRect(0, 0, cw, ch); }
+    ctx.drawImage(img, L.x, L.y, L.w, L.h);
+    if (L.fade) {
+      const y1 = L.y + L.h, y0 = y1 - ch * 0.14;
+      const g = ctx.createLinearGradient(0, y0, 0, y1);
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, bg());
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = g; ctx.fillRect(0, y0, cw, y1 - y0 + 1);
+    }
+  }
+  const bg = () => getComputedStyle(root).getPropertyValue('--bg').trim() || '#000';
+  // Wide screens: logo sits right of the headline. Phones: logo sits above the copy.
+  function layout(cw, ch, iw, ih) {
+    let cx = 0.5, cy = 0.5, x, y, w, h, fade = false;
+    if (cw / ch < 0.9) {
+      h = ch * 0.54; w = h * iw / ih; x = (cw - w) / 2; y = 0; cy = 0.27; fade = true;
+    } else {
+      if (cw > 760 * D) cx = 0.66;
+      const s = Math.max(cw / iw, ch / ih, (2 * Math.max(cx, 1 - cx) * cw) / iw);
+      w = iw * s; h = ih * s; x = cx * cw - w / 2; y = (ch - h) / 2;
+    }
+    stage.style.setProperty('--cx', (cx * 100) + '%');
+    stage.style.setProperty('--cy', (cy * 100 * 0.96) + '%');
+    stage.style.setProperty('--zone', (h / D * 0.5) + 'px');
+    Object.assign(shine.style, { left: x / D + 'px', top: y / D + 'px', width: w / D + 'px', height: h / D + 'px' });
+    shine.classList.toggle('portrait', fade);
+    return { x, y, w, h, fade };
+  }
+  const top = document.querySelector('.top');
+  function onScroll() {
+    top.classList.toggle('solid', hero.getBoundingClientRect().bottom < 80);
+    const p = progress();
+    barFill.style.width = (p * 100).toFixed(1) + '%';
+    draw(false);
+    const isEnd = p > 0.985;
+    if (isEnd !== ended) {
+      ended = isEnd;
+      stage.classList.toggle('ended', ended);
+      updateShine();
+    }
+  }
+  function updateShine() {
+    const on = ended && mode === 'light';
+    shine.classList.toggle('on', on);
+    if (on) { shine.play().catch(() => {}); } else { shine.pause(); }
+  }
+  function setMode() {
+    const m = isDark() ? 'dark' : 'light';
+    if (m === mode) return;
+    mode = m;
+    root.dataset.mode = m;
+    load(m);
+    draw(true);
+    updateShine();
+    // warm the other set after the first one
+    setTimeout(() => load(m === 'dark' ? 'light' : 'dark'), 1500);
+  }
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('ugaaz-theme', root.dataset.theme); } catch (e) {}
+    setMode();
+  });
+  document.getElementById('hit').addEventListener('click', () => {
+    if (mode === 'light' && ended) { shine.currentTime = 0; shine.play().catch(() => {}); return; }
+    sweep.classList.remove('go'); void sweep.offsetWidth; sweep.classList.add('go');
+  });
+
+  try { const saved = localStorage.getItem('ugaaz-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setMode);
+  addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+  addEventListener('resize', size);
+  setMode();
+  size();
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
