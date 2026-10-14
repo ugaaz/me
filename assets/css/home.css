@@ -190,8 +190,19 @@
 
 /* Contact / composer */
 .contact { position: relative; overflow: hidden; }
-.contact-grid { display: grid; grid-template-columns: 5fr 6fr; gap: 56px; align-items: start; }
-.contact h2 { font-size: clamp(40px, 6vw, 76px); letter-spacing: -0.03em; }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 48px; align-items: start; }
+.contact-main { display: grid; gap: 32px; min-width: 0; }
+.contact h2 { font-size: clamp(38px, 4.4vw, 60px); letter-spacing: -0.03em; }
+.composer { background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+
+.sec-bg--contact { left: 0; right: 0; top: 50%; height: 55.8vw; transform: translateY(-50%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); }
+.sec-bg--contact img { object-position: 0% 50%; }
+.sec-bg--contact::after {
+  background:
+    linear-gradient(90deg, rgba(10,11,13,0) 0%, rgba(10,11,13,0) 40%, rgba(10,11,13,.7) 56%, rgba(10,11,13,.9) 100%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(10,11,13,.85) 8%, rgba(10,11,13,0) 30%, rgba(10,11,13,0) 74%, var(--bg) 96%);
+}
 .contact .lede { margin-top: 20px; }
 .direct { display: grid; gap: 12px; margin-top: 32px; }
 .direct a { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 600; font-size: 18px; width: fit-content; }
@@ -213,7 +224,13 @@
 .form-note { font-size: 14px; color: var(--muted); min-height: 1.4em; }
 .form-note.err { color: #ef6b5b; }
 .form-note a { color: var(--accent-ink); font-weight: 600; text-underline-offset: 3px; }
-@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 0; }
+  .contact-visual { height: calc(78vw - 40px); }
+  .sec-bg--contact { top: 0; transform: none; height: 78vw; }
+  .sec-bg--contact img { object-position: 12% 50%; }
+  .sec-bg--contact::after { background: linear-gradient(180deg, var(--bg) 0%, rgba(10,11,13,0) 16%, rgba(10,11,13,0) 66%, var(--bg) 100%); }
+}
 @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
 
 /* One orchestrated entrance for the hero */
