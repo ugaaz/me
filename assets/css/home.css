@@ -22,25 +22,33 @@
 
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
 .hero-bg-inner { position: absolute; inset: -6% 0 -6% 0; will-change: transform; }
-.hero-bg-inner > img { width: 100%; height: 100%; object-fit: cover; object-position: 78% 50%; }
+.hero-bg-inner > img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+@media (max-width: 1200px) and (min-width: 901px) { .hero-bg-inner > img { object-position: 20% 50%; } .hero-copy { max-width: 520px; } }
 .hero-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, var(--bg) 0%, rgba(10,11,13,.92) 28%, rgba(10,11,13,.45) 52%, rgba(10,11,13,0) 72%),
-    linear-gradient(180deg, rgba(10,11,13,.55) 0%, rgba(10,11,13,0) 18%, rgba(10,11,13,0) 70%, var(--bg) 100%);
+    linear-gradient(90deg, rgba(10,11,13,.85) 0%, rgba(10,11,13,.55) 26%, rgba(10,11,13,0) 46%),
+    linear-gradient(180deg, rgba(10,11,13,.5) 0%, rgba(10,11,13,0) 14%, rgba(10,11,13,0) 74%, var(--bg) 100%);
 }
 
 /* Silver glitching logo, placed on a screen inside the hero image */
 .screen-logo { position: absolute; display: grid; place-items: center; overflow: hidden; background: #050607; }
 .screen-logo::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px); mix-blend-mode: screen; pointer-events: none; }
-.screen-logo img { grid-area: 1 / 1; width: 46%; height: auto; filter: brightness(.86) contrast(1.15) drop-shadow(0 0 10px rgba(220,226,234,.55)); }
-.screen-logo img:nth-child(2), .screen-logo img:nth-child(3) { opacity: .8; mix-blend-mode: screen; }
-@media (prefers-reduced-motion: no-preference) {
-  .screen-logo img:nth-child(1) { animation: g-base 3.2s steps(1) infinite; }
-  .screen-logo img:nth-child(2) { animation: g-slice-a 3.2s steps(1) infinite; filter: brightness(1.1) drop-shadow(-3px 0 0 rgba(255,255,255,.6)); }
-  .screen-logo img:nth-child(3) { animation: g-slice-b 3.2s steps(1) infinite; filter: brightness(.6) drop-shadow(3px 0 0 rgba(160,168,180,.8)); }
+.screen-logo span {
+  grid-area: 1 / 1; width: 58%; aspect-ratio: 256 / 320;
+  -webkit-mask: url("../img/mark.png") center / contain no-repeat; mask: url("../img/mark.png") center / contain no-repeat;
+  background: linear-gradient(160deg, #ffffff 0%, #d9dde3 22%, #8d949e 46%, #eef0f3 62%, #a3a9b2 80%, #ffffff 100%);
 }
-@media (prefers-reduced-motion: reduce) { .screen-logo img:nth-child(n+2) { display: none; } }
+.glyph { display: grid; place-items: center; width: 100%; height: 100%; filter: drop-shadow(0 0 12px rgba(214, 220, 228, .35)); }
+.screen-logo span:nth-child(2) { background: #f5f7fa; opacity: .85; }
+.screen-logo span:nth-child(3) { background: #6d747e; opacity: .9; }
+.screen-logo span:nth-child(n+2) { clip-path: inset(100% 0 0 0); }
+@media (prefers-reduced-motion: no-preference) {
+  .screen-logo span:nth-child(2) { animation: g-slice-a 3.2s steps(1) infinite; }
+  .screen-logo span:nth-child(3) { animation: g-slice-b 3.2s steps(1) infinite; }
+  .screen-logo span:nth-child(1) { background-size: 100% 220%; animation: g-base 3.2s steps(1) infinite, sheen 6s ease-in-out infinite; }
+}
+@keyframes sheen { 0%, 100% { background-position: 0 0; } 50% { background-position: 0 100%; } }
 @keyframes g-base { 0%, 100% { transform: none; opacity: 1; } 62% { transform: translateX(-2%) skewX(-4deg); } 64% { transform: none; } 80% { opacity: .55; } 81% { opacity: 1; } }
 @keyframes g-slice-a {
   0%, 58%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
@@ -61,11 +69,12 @@
 }
 
 @media (max-width: 900px) {
-  .hero { display: flex; align-items: flex-end; min-height: 100svh; padding-top: 72px; }
-  .hero-copy { padding-block: 40px 48px; }
-  .hero-bg-inner > img { object-position: 82% 30%; }
+  .hero { display: block; min-height: 0; padding-top: 360px; }
+  .hero-copy { padding-block: 0 48px; }
+  .hero-bg { inset: 40px 0 auto 0; height: 600px; }
+  .hero-bg-inner > img { object-position: 60% 50%; }
   .hero-bg::after {
-    background: linear-gradient(180deg, rgba(10,11,13,.35) 0%, rgba(10,11,13,.2) 30%, rgba(10,11,13,.85) 55%, var(--bg) 78%);
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(10,11,13,0) 8%, rgba(10,11,13,0) 52%, rgba(10,11,13,.85) 66%, var(--bg) 80%);
   }
 }
 

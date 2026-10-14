@@ -7,8 +7,8 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Screen rectangle inside the source image, as fractions of its width and height.
-  // Set once the final workstation image is in: e.g. { x: 0.71, y: 0.18, w: 0.09, h: 0.32 }
-  const SCREEN = null;
+  // Measured from the black vertical monitor in hero.webp (1376 x 768): x 701, y 90, w 167, h 313 px.
+  const SCREEN = { x: 701 / 1376, y: 90 / 768, w: 167 / 1376, h: 313 / 768 };
 
   const place = () => {
     if (!SCREEN || !logo || !img.naturalWidth) return;
