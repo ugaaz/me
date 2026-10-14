@@ -6,9 +6,9 @@
     linear-gradient(180deg, transparent 70%, var(--bg));
 }
 .hero .wrap { position: relative; z-index: 2; }
-.hero-copy { max-width: 560px; padding-block: 48px 64px; }
+.hero-copy { max-width: 470px; padding-block: 48px 64px; }
 .hero h1 {
-  font-size: clamp(46px, 6.4vw, 88px);
+  font-size: clamp(44px, 5.2vw, 76px);
   line-height: 0.95;
   letter-spacing: -0.035em;
   font-variation-settings: "opsz" 96, "wdth" 92;
@@ -17,22 +17,22 @@
 }
 .hero .lede { margin-top: 26px; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+@media (min-width: 1101px) { .hero-cta { width: max-content; flex-wrap: nowrap; } }
 .hero-meta { margin-top: 28px; color: var(--muted); font-size: 15px; display: flex; align-items: center; gap: 10px; }
 .hero-meta .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(228,231,235,.18); flex: none; }
 
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero-bg-inner { position: absolute; inset: -6% 0 -6% 0; will-change: transform; }
-.hero-bg-inner > img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
-@media (max-width: 1200px) and (min-width: 901px) { .hero-bg-inner > img { object-position: 20% 50%; } .hero-copy { max-width: 520px; } }
+.hero-bg-inner { position: absolute; inset: 0; will-change: transform; }
+.hero-bg-inner > img { position: absolute; max-width: none; left: 0; top: 0; height: 100%; width: auto; }
 .hero-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(10,11,13,.85) 0%, rgba(10,11,13,.55) 26%, rgba(10,11,13,0) 46%),
+    linear-gradient(90deg, rgba(10,11,13,.8) 0%, rgba(10,11,13,.45) 24%, rgba(10,11,13,0) 40%),
     linear-gradient(180deg, rgba(10,11,13,.5) 0%, rgba(10,11,13,0) 14%, rgba(10,11,13,0) 74%, var(--bg) 100%);
 }
 
 /* Silver glitching logo, placed on a screen inside the hero image */
-.screen-logo { position: absolute; display: grid; place-items: center; overflow: hidden; background: #050607; }
+.screen-logo { position: absolute; left: 0; top: 0; width: 100px; height: 300px; transform-origin: 0 0; display: grid; place-items: center; overflow: hidden; background: #050607; }
 .screen-logo::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px); mix-blend-mode: screen; pointer-events: none; }
 .screen-logo span {
   grid-area: 1 / 1; width: 58%; aspect-ratio: 256 / 320;
@@ -68,13 +68,12 @@
   91% { clip-path: inset(100% 0 0 0); }
 }
 
-@media (max-width: 900px) {
-  .hero { display: block; min-height: 0; padding-top: 360px; }
-  .hero-copy { padding-block: 0 48px; }
-  .hero-bg { inset: 40px 0 auto 0; height: 600px; }
-  .hero-bg-inner > img { object-position: 60% 50%; }
+@media (max-width: 1100px) {
+  .hero { display: block; min-height: 0; padding-top: calc(60px + var(--bg-h, 420px) - 70px); }
+  .hero-copy { padding-block: 0 48px; max-width: 600px; }
+  .hero-bg { inset: 60px 0 auto 0; height: var(--bg-h, 420px); }
   .hero-bg::after {
-    background: linear-gradient(180deg, var(--bg) 0%, rgba(10,11,13,0) 8%, rgba(10,11,13,0) 52%, rgba(10,11,13,.85) 66%, var(--bg) 80%);
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(10,11,13,0) 10%, rgba(10,11,13,0) 70%, var(--bg) 100%);
   }
 }
 
