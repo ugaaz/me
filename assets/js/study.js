@@ -27,7 +27,7 @@
     { key: 'TE', short: 'Technology', name: 'Technology', ind: ['HTTPS', 'Mobile viewport', 'Indexable without JavaScript', 'No placeholder or template content', 'No dead links'] },
   ];
   const SHORT = {"Central Bank of Somalia": "Central Bank", "Ministry of Planning": "Planning", "Office of the Prime Minister": "Prime Minister's Office", "Puntland Ministry of Finance": "Puntland Finance", "Ministry of Finance": "Finance", "Immigration and Citizenship Agency": "Immigration", "Ministry of Foreign Affairs": "Foreign Affairs", "Ministry of Education": "Education", "Villa Somalia (Office of the President)": "Villa Somalia", "Ministry of Health": "Health", "Ministry of Justice": "Justice", "Jubaland State": "Jubaland State", "Supreme Court": "Supreme Court", "Banadir Regional Administration": "Banadir Region", "Ministry of Commerce and Industry": "Commerce and Industry", "Ministry of Interior": "Interior"};
-  const LEVEL_COLOR = { Federal: 'var(--blue)', State: 'var(--silver)', Regional: 'var(--gold)' };
+  const LEVEL_COLOR = { Federal: 'var(--chart-mid)', State: 'var(--chart-lo)', Regional: 'var(--chart-hi)' };
 
   const rows = SITES.map(([name, level, ...codes]) => {
     const bits = codes.join('').split('').map(Number);

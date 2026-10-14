@@ -1,26 +1,7 @@
-// ugaaz.com — shared behaviour: theme, header, navigation, WhatsApp composer
+// ugaaz.com — shared behaviour: header, navigation, WhatsApp composer
 (function () {
   const root = document.documentElement;
   const WA = '252613333489';
-
-  // Theme
-  const store = {
-    get() { try { return localStorage.getItem('ugaaz-theme'); } catch (e) { return null; } },
-    set(v) { try { localStorage.setItem('ugaaz-theme', v); } catch (e) {} },
-  };
-  const saved = store.get();
-  if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
-  const current = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  const themeBtn = document.querySelector('[data-theme-toggle]');
-  const labelTheme = () => { if (themeBtn) themeBtn.setAttribute('aria-label', current() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); };
-  labelTheme();
-  themeBtn && themeBtn.addEventListener('click', () => {
-    const next = current() === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    store.set(next);
-    labelTheme();
-    document.dispatchEvent(new Event('themechange'));
-  });
 
   // Header state
   const top = document.querySelector('.top');
