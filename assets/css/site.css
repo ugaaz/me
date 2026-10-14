@@ -14,9 +14,10 @@
   --accent-ink: #f1f3f5;
   --on-accent: #0a0b0d;
   --chrome: linear-gradient(180deg, #f7f8fa 0%, #d5d9df 45%, #a9afb8 100%);
-  --chart-hi: #f4f6f8;
-  --chart-mid: #9aa1ab;
-  --chart-lo: #5c626b;
+  --data: #4c8fe0;
+  --data-light: #9cc3f2;
+  --data-deep: #2e64a8;
+  --data-track: rgba(76, 143, 224, 0.14);
   --mark-filter: none;
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -65,6 +66,30 @@ p { margin: 0; }
 .btn:active { transform: scale(.98); }
 .btn-chrome { background: var(--chrome); color: var(--on-accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 12px 40px -14px rgba(220,226,234,.45); }
 .btn-chrome:hover { filter: brightness(1.06); }
+.btn-chrome { position: relative; overflow: hidden; isolation: isolate; }
+.btn-chrome::after {
+  content: ""; position: absolute; inset: -2px auto -2px -60%; width: 45%; z-index: -1;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.95) 50%, transparent 100%);
+  transform: skewX(-20deg); opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-chrome {
+    background: linear-gradient(110deg, #f7f8fa 0%, #cfd3d9 22%, #9aa1ab 38%, #f4f6f8 52%, #c2c7ce 70%, #f2f4f6 100%);
+    background-size: 260% 100%; animation: liquid 5s ease-in-out infinite;
+  }
+  .btn-chrome::after { animation: sweep 3.6s var(--ease) infinite; }
+  .btn-chrome.pulse { animation: liquid 5s ease-in-out infinite, pulse 2.4s ease-out infinite; }
+  .btn-chrome.pulse svg { animation: nudge 3.6s ease-in-out infinite; transform-origin: 50% 50%; }
+  .btn-chrome:hover::after { animation-duration: 1.2s; }
+}
+@keyframes liquid { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes sweep { 0%, 55% { left: -60%; opacity: 0; } 60% { opacity: 1; } 85% { left: 120%; opacity: 1; } 100% { left: 120%; opacity: 0; } }
+@keyframes pulse {
+  0% { box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 0 rgba(228,231,235,.45), 0 12px 40px -14px rgba(220,226,234,.45); }
+  70% { box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 14px rgba(228,231,235,0), 0 12px 40px -14px rgba(220,226,234,.45); }
+  100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 0 rgba(228,231,235,0), 0 12px 40px -14px rgba(220,226,234,.45); }
+}
+@keyframes nudge { 0%, 70%, 100% { transform: none; } 74% { transform: rotate(-14deg); } 78% { transform: rotate(12deg); } 82% { transform: rotate(-8deg); } 86% { transform: none; } }
 .btn-ghost { border-color: var(--line-2); background: transparent; }
 .btn-ghost:hover { border-color: var(--text); }
 .btn svg { width: 20px; height: 20px; flex: none; }
