@@ -91,8 +91,12 @@
         detail ? `Details: ${detail}` : '',
       ].filter(Boolean);
       const url = `https://wa.me/${WA}?text=${encodeURIComponent(lines.join('\n'))}`;
-      note.textContent = 'Opening WhatsApp with your message ready to send.';
-      window.open(url, '_blank', 'noopener');
+      const win = window.open(url, '_blank', 'noopener');
+      note.textContent = '';
+      const a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Open WhatsApp to send it';
+      note.append(win ? 'WhatsApp opened with your message. If it didn\'t, ' : 'Your message is ready. ', a, '.');
     });
   }
 
