@@ -1,0 +1,101 @@
+// ugaaz.com — shared behaviour: theme, header, navigation, WhatsApp composer
+(function () {
+  const root = document.documentElement;
+  const WA = '252613333489';
+
+  // Theme
+  const store = {
+    get() { try { return localStorage.getItem('ugaaz-theme'); } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem('ugaaz-theme', v); } catch (e) {} },
+  };
+  const saved = store.get();
+  if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
+  const current = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const themeBtn = document.querySelector('[data-theme-toggle]');
+  const labelTheme = () => { if (themeBtn) themeBtn.setAttribute('aria-label', current() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); };
+  labelTheme();
+  themeBtn && themeBtn.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set(next);
+    labelTheme();
+    document.dispatchEvent(new Event('themechange'));
+  });
+
+  // Header state
+  const top = document.querySelector('.top');
+  const onScroll = () => top && top.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Research dropdown
+  document.querySelectorAll('.dd').forEach((dd) => {
+    const btn = dd.querySelector('button');
+    const close = () => { dd.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !dd.classList.contains('open');
+      dd.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => { if (!dd.contains(e.target)) close(); });
+    dd.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); btn.focus(); } });
+  });
+
+  // Mobile menu
+  const nav = document.querySelector('.nav');
+  const menuBtn = document.querySelector('.menu-btn');
+  menuBtn && menuBtn.addEventListener('click', () => {
+    const open = !nav.classList.contains('mobile-open');
+    nav.classList.toggle('mobile-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  nav && nav.addEventListener('click', (e) => {
+    if (e.target.closest('a') && nav.classList.contains('mobile-open')) {
+      nav.classList.remove('mobile-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // WhatsApp links with a prefilled message
+  document.querySelectorAll('[data-wa]').forEach((a) => {
+    const msg = a.getAttribute('data-wa') || 'Asc Ugaaz, I would like to talk about a project.';
+    a.href = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+    a.target = '_blank';
+    a.rel = 'noopener';
+  });
+
+  // Project composer: builds a WhatsApp message from the form
+  const form = document.querySelector('[data-composer]');
+  if (form) {
+    const note = form.querySelector('.form-note');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = (data.get('name') || '').toString().trim();
+      const need = (data.get('need') || '').toString();
+      const where = (data.get('where') || '').toString();
+      const detail = (data.get('detail') || '').toString().trim();
+      if (!name || !need) {
+        note.textContent = !name ? 'Add your name so I know who is writing.' : 'Pick what you need help with.';
+        note.classList.add('err');
+        (!name ? form.querySelector('[name=name]') : form.querySelector('[name=need]')).focus();
+        return;
+      }
+      note.classList.remove('err');
+      const lines = [
+        `Asc Ugaaz, I'm ${name}.`,
+        `I need help with: ${need}.`,
+        where ? `Based in: ${where}.` : '',
+        detail ? `Details: ${detail}` : '',
+      ].filter(Boolean);
+      const url = `https://wa.me/${WA}?text=${encodeURIComponent(lines.join('\n'))}`;
+      note.textContent = 'Opening WhatsApp with your message ready to send.';
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+
+  // Year
+  document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
+})();
